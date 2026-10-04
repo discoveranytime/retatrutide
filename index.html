@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retatrutide — The Triple Agonist | Claims vs Evidence</title>
+<meta name="description" content="An interactive, educational deep-dive into retatrutide: the investigational GIP/GLP-1/glucagon triple agonist, its three pathways, the TRIUMPH trial results, and what people online report. Not medical advice.">
+<script>
+try{var _t=localStorage.getItem("reta-theme");if(_t==="light"||_t==="dark")document.documentElement.setAttribute("data-theme",_t);}catch(e){}
+</script>
+<style>
+:root{
+  --bg0:#06070d; --bg1:#0a0c17;
+  --ink:#edf0f9; --muted:#a9b1c9; --faint:#7f88a5;
+  --sky:#7cc7ff; --sky-deep:#0284c7;
+  --teal:#5eead4; --teal-deep:#0d9488;
+  --org:#fb923c; --org-deep:#c2410c;
+  --amber:#fbbf24; --rose:#fb7185; --cyan:#67e8f9;
+  --card:#0d1020; --card2:#12162b;
+  --line:rgba(255,255,255,.09);
+  --grad:linear-gradient(100deg,#7cc7ff 5%,#5eead4 50%,#fb923c 95%);
+  --radius:18px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --disp:"Avenir Next","Segoe UI",-apple-system,BlinkMacSystemFont,Inter,Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg0);color:var(--ink);
+  font-size:1.06rem;line-height:1.75;overflow-x:clip;-webkit-font-smoothing:antialiased}
+.bg-grad{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 620px at 12% -6%, rgba(2,132,199,.18), transparent 60%),
+    radial-gradient(820px 600px at 88% 22%, rgba(194,65,12,.12), transparent 60%),
+    radial-gradient(1000px 800px at 50% 110%, rgba(13,148,136,.12), transparent 62%),
+    radial-gradient(700px 500px at 78% 78%, rgba(251,113,133,.06), transparent 60%)}
+#dots{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.85}
+.orb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(90px)}
+.o1{width:520px;height:520px;left:-140px;top:6%;background:radial-gradient(circle,rgba(2,132,199,.15),transparent 70%);animation:drift1 38s ease-in-out infinite alternate}
+.o2{width:460px;height:460px;right:-120px;top:38%;background:radial-gradient(circle,rgba(194,65,12,.12),transparent 70%);animation:drift2 46s ease-in-out infinite alternate}
+.o3{width:430px;height:430px;left:24%;bottom:-160px;background:radial-gradient(circle,rgba(13,148,136,.12),transparent 70%);animation:drift3 54s ease-in-out infinite alternate}
+@keyframes drift1{from{transform:translate(0,0)}to{transform:translate(120px,80px)}}
+@keyframes drift2{from{transform:translate(0,0)}to{transform:translate(-100px,-70px)}}
+@keyframes drift3{from{transform:translate(0,0)}to{transform:translate(90px,-80px)}}
+#confetti{position:fixed;inset:0;z-index:65;pointer-events:none;opacity:0;transition:opacity .6s ease}
+#confetti.show{opacity:1}
+#doneToast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);z-index:66;
+  background:var(--card);border:1px solid var(--line);color:var(--ink);
+  padding:.7rem 1.25rem;border-radius:999px;font-size:.9rem;font-weight:600;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .5s ease,transform .5s ease;
+  box-shadow:0 8px 30px rgba(0,0,0,.28)}
+#doneToast.show{opacity:1;transform:translate(-50%,0)}
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;z-index:60;background:var(--grad);border-radius:0 3px 3px 0}
+#themeToggle{position:fixed;top:12px;right:14px;z-index:70;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:transform .25s ease,background .25s ease;
+  box-shadow:0 4px 18px rgba(0,0,0,.25)}
+#themeToggle:hover{transform:scale(1.08)}
+#themeToggle:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+#themeToggle svg{width:20px;height:20px}
+[data-theme="dark"] #themeToggle .ic-sun{display:block}
+[data-theme="dark"] #themeToggle .ic-moon{display:none}
+[data-theme="light"] #themeToggle .ic-sun{display:none}
+[data-theme="light"] #themeToggle .ic-moon{display:block}
+[data-theme="dark"]{color-scheme:dark}
+nav.chapters{position:sticky;top:0;z-index:50;background:rgba(6,7,13,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav.chapters .rail{max-width:1080px;margin:0 auto;padding:.65rem 1rem;display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;padding-right:3.8rem}
+nav.chapters .rail::-webkit-scrollbar{display:none}
+nav.chapters a{flex:0 0 auto;text-decoration:none;color:var(--muted);font-size:.82rem;font-weight:600;
+  letter-spacing:.04em;padding:.42rem .8rem;border:1px solid var(--line);border-radius:999px;white-space:nowrap;transition:all .25s ease}
+nav.chapters a:hover{color:var(--ink);border-color:rgba(255,255,255,.25)}
+nav.chapters a.active{color:#0a0c14;background:var(--grad);border-color:transparent}
+.toc{display:none}
+@media(min-width:1200px){
+  nav.chapters{display:none}
+  body{padding-left:248px}
+  .toc{display:flex;position:fixed;left:0;top:0;bottom:0;width:248px;z-index:45;
+    flex-direction:column;justify-content:center;gap:.2rem;
+    padding:2rem 1.1rem 2rem 1.4rem;
+    background:rgba(6,7,13,.72);backdrop-filter:blur(14px);border-right:1px solid var(--line)}
+  .toc .brand{font-family:var(--disp);font-weight:800;font-size:.98rem;letter-spacing:-.01em;
+    margin-bottom:1.2rem;line-height:1.35;color:var(--ink);
+    text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px}
+  .toc .brand .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .toc a{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--muted);
+    font-size:.86rem;font-weight:600;padding:.55rem .7rem;border-radius:10px;
+    border:1px solid transparent;transition:all .22s ease;position:relative;z-index:1}
+  .toc a .n{font-size:.72rem;font-weight:800;color:var(--faint);width:1.7rem;flex:0 0 auto;font-variant-numeric:tabular-nums;letter-spacing:.04em}
+  .toc a:hover{color:var(--ink);background:rgba(255,255,255,.045)}
+  .toc a.active{color:#0a0c14;font-weight:700}
+  .toc a.active .n{color:#0a0c14}
+  .toc-pill{position:absolute;left:1.4rem;top:0;width:calc(100% - 2.5rem);height:40px;border-radius:10px;
+    background:var(--grad);z-index:0;opacity:0;pointer-events:none;
+    transition:transform .5s cubic-bezier(.25,.8,.25,1),opacity .35s ease,height .3s ease}
+  .toc .mini{margin-top:1.5rem;font-size:.7rem;color:var(--faint);letter-spacing:.14em;
+    text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+  .toc .mini #tocPct{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+    font-size:.85rem;font-weight:800;letter-spacing:0;font-variant-numeric:tabular-nums}
+  .toc .mini-bar{height:3px;background:rgba(255,255,255,.08);border-radius:99px;margin-top:.55rem;overflow:hidden}
+  .toc .mini-bar i{display:block;height:100%;width:0;background:var(--grad);border-radius:99px}
+}
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 1.25rem}
+section.chapter{padding:4.2rem 0 1rem;scroll-margin-top:84px}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:1rem}
+.eyebrow .n{display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:10px;
+  background:var(--grad);color:#0a0c14;font-size:.85rem;letter-spacing:0}
+h2{font-family:var(--disp);font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:1rem}
+h2 .hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{color:var(--muted);font-size:1.12rem;max-width:44rem;margin-bottom:2rem}
+.lede strong{color:var(--ink)}
+.hero{position:relative;z-index:1;text-align:center;padding:5.5rem 1.25rem 3.5rem;max-width:960px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:.55rem;font-size:.78rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink);border:1px solid var(--line);background:rgba(255,255,255,.04);
+  padding:.55rem 1.1rem;border-radius:999px;margin-bottom:1.6rem}
+.badge .dot{width:.6rem;height:.6rem;border-radius:50%;background:var(--amber);box-shadow:0 0 0 0 rgba(251,191,36,.6);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(251,191,36,.55)}70%{box-shadow:0 0 0 12px rgba(251,191,36,0)}100%{box-shadow:0 0 0 0 rgba(251,191,36,0)}}
+.hero h1{font-family:var(--disp);font-weight:900;letter-spacing:-.03em;line-height:1.02;font-size:clamp(2.4rem,7.5vw,4.8rem);margin-bottom:1.1rem}
+.hero h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:200% auto;animation:sheen 9s ease-in-out infinite}
+@keyframes sheen{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero .sub{color:var(--muted);font-size:clamp(1.05rem,2.4vw,1.3rem);max-width:42rem;margin:0 auto 2.2rem}
+.hero .sub strong{color:var(--ink)}
+.quickread{max-width:46rem;margin:0 auto;text-align:left;background:rgba(255,255,255,.035);
+  border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem 1.5rem;display:flex;gap:1rem;align-items:flex-start}
+.quickread .tag{flex:0 0 auto;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--grad);color:#0a0c14;border-radius:8px;padding:.35rem .7rem;margin-top:.2rem}
+.quickread p{color:var(--muted);font-size:.98rem}
+.quickread p strong{color:var(--ink)}
+.hero-stats{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.4rem}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem 1.5rem;min-width:150px}
+.stat .num{font-family:var(--disp);font-size:2rem;font-weight:800;background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .lbl{font-size:.8rem;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.scroll-hint{margin-top:3rem;color:var(--faint);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(8px);opacity:1}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-bottom:1.5rem}
+@media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--ac,var(--grad))}
+.card.sky{--ac:linear-gradient(90deg,var(--sky-deep),var(--sky))}
+.card.teal{--ac:linear-gradient(90deg,var(--teal-deep),var(--teal))}
+.card.org{--ac:linear-gradient(90deg,var(--org-deep),var(--org))}
+.card h3{font-family:var(--disp);font-size:1.35rem;font-weight:800;margin-bottom:.4rem;letter-spacing:-.01em}
+.card h3 .chem{font-size:.85rem;font-weight:600;color:var(--faint);letter-spacing:.08em}
+.card p,.card li{color:var(--muted);font-size:.99rem}
+.card ul{list-style:none;margin-top:.9rem;display:grid;gap:.65rem}
+.card ul li{padding-left:1.5rem;position:relative}
+.card ul li::before{content:"▸";position:absolute;left:0;font-weight:800}
+.card.sky ul li::before{color:var(--sky)}
+.card.teal ul li::before{color:var(--teal)}
+.card.org ul li::before{color:var(--org)}
+.card strong{color:var(--ink)}
+.plain{margin-top:1.2rem;background:rgba(255,255,255,.035);border:1px dashed rgba(255,255,255,.22);
+  border-radius:12px;padding:1rem 1.2rem;font-size:.96rem;color:var(--muted)}
+.plain b{color:var(--ink)}
+.plain .plabel{display:block;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--org);margin-bottom:.35rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;margin-bottom:1.4rem}
+.panel h3{font-family:var(--disp);font-size:1.3rem;font-weight:800;margin-bottom:.8rem}
+.panel p{color:var(--muted);margin-bottom:.8rem}
+.panel p strong,.panel li strong{color:var(--ink)}
+.kv{display:flex;gap:.9rem;align-items:flex-start;padding:.9rem 0;border-top:1px solid var(--line)}
+.kv:first-of-type{border-top:none}
+.kv .k{flex:0 0 auto;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:.3rem .7rem;border-radius:8px;margin-top:.25rem}
+.kv .k.s{background:rgba(124,199,255,.12);color:var(--sky);border:1px solid rgba(124,199,255,.35)}
+.kv .k.t{background:rgba(94,234,212,.10);color:var(--teal);border:1px solid rgba(94,234,212,.35)}
+.kv .k.o{background:rgba(251,146,60,.12);color:var(--org);border:1px solid rgba(251,146,60,.35)}
+.kv .k.a{background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.35)}
+.kv .k.g{background:rgba(251,113,133,.12);color:var(--rose);border:1px solid rgba(251,113,133,.35)}
+.kv p{font-size:.99rem}
+.diagram{background:radial-gradient(600px 300px at 50% 0%,rgba(2,132,199,.10),transparent 70%),#090b15;
+  border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem;margin:0 0 1.4rem;overflow:hidden}
+.diagram svg{display:block;width:100%;height:auto}
+.diagram .cap{text-align:center;color:var(--faint);font-size:.85rem;margin-top:.9rem;letter-spacing:.03em}
+.flow{stroke-dasharray:6 7;animation:dashmove 1.6s linear infinite}
+@keyframes dashmove{to{stroke-dashoffset:-26}}
+.float-slow{animation:floaty 5s ease-in-out infinite}
+.float-slower{animation:floaty 7s ease-in-out infinite reverse}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.glow-pulse{animation:glowp 2.8s ease-in-out infinite}
+@keyframes glowp{0%,100%{opacity:.55}50%{opacity:1}}
+.ebar{margin:1rem 0 1.4rem}
+.ebar .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem}
+.ebar .row .t{font-weight:700;font-size:.98rem}
+.ebar .row .v{font-size:.88rem;color:var(--faint);font-variant-numeric:tabular-nums}
+.ebar .track{height:14px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.ebar .fill{height:100%;width:0;border-radius:999px;transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
+.in .ebar .fill{width:var(--w)}
+.ebar .note{font-size:.85rem;color:var(--faint);margin-top:.45rem}
+.anec-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:720px){.anec-grid{grid-template-columns:1fr}}
+.anec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem;position:relative;overflow:hidden}
+.anec::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.anec .stamp{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.12em;
+  color:var(--amber);border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);
+  padding:.28rem .6rem;border-radius:7px;text-transform:uppercase;margin-bottom:.65rem}
+.anec h4{font-size:1.05rem;font-weight:800;margin-bottom:.5rem}
+.anec-head{display:flex;align-items:center;gap:.85rem;margin-bottom:.55rem}
+.anec-head .thumb{flex:0 0 auto;width:54px;height:54px;border-radius:14px;border:1px solid var(--line)}
+.anec-head h4{margin-bottom:0}
+.anec p{color:var(--muted);font-size:.95rem}
+.anec p strong{color:var(--ink)}
+.anec .caveat{margin-top:.8rem;font-size:.82rem;color:var(--faint);border-top:1px dashed var(--line);padding-top:.7rem}
+.folk-note{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.3);border-radius:var(--radius);
+  padding:1.2rem 1.4rem;margin-bottom:1.6rem;color:var(--muted);font-size:.98rem}
+.folk-note strong{color:var(--amber)}
+.safety-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:720px){.safety-grid{grid-template-columns:1fr}}
+.scard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem}
+.scard .level{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:.3rem .65rem;border-radius:7px;margin-bottom:.7rem}
+.scard h4{font-size:1.05rem;font-weight:800;margin-bottom:.5rem}
+.scard p{color:var(--muted);font-size:.95rem}
+.scard p strong{color:var(--ink)}
+.lvl-known .level{background:rgba(251,191,36,.1);color:var(--amber);border:1px solid rgba(251,191,36,.4)}
+.lvl-theory .level{background:rgba(251,146,60,.1);color:var(--org);border:1px solid rgba(251,146,60,.4)}
+.lvl-unknown .level{background:rgba(251,113,133,.1);color:var(--rose);border:1px solid rgba(251,113,133,.4)}
+.gloss{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card)}
+.g-item{border-bottom:1px solid var(--line)}
+.g-item:last-child{border-bottom:none}
+.g-q{width:100%;background:none;border:none;color:var(--ink);font-family:var(--font);font-size:1.02rem;font-weight:700;
+  text-align:left;padding:1.05rem 1.4rem;cursor:pointer;display:flex;justify-content:flex-start;align-items:center;gap:1rem}
+.g-q:hover{background:rgba(255,255,255,.03)}
+.g-q .term{color:var(--sky)}
+.g-item:nth-child(3n+2) .g-q .term{color:var(--teal)}
+.g-item:nth-child(3n) .g-q .term{color:var(--org)}
+.g-q .plus{flex:0 0 auto;width:1.7rem;height:1.7rem;border-radius:50%;border:1px solid var(--line);margin-left:auto;
+  display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--muted);transition:all .3s}
+.g-item.open .g-q .plus{transform:rotate(45deg);background:var(--grad);color:#0a0c14;border-color:transparent}
+.gthumb{flex:0 0 auto;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);
+  animation:gaFloat 5s ease-in-out infinite}
+.gthumb.v2{animation:gaBreathe 4.4s ease-in-out infinite}
+.gthumb.v3{animation:gaTilt 6s ease-in-out infinite}
+@keyframes gaFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes gaBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes gaTilt{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.g-a{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.g-a .gsci,.g-a .gex{padding:0 1.4rem 1rem;color:var(--muted);font-size:.95rem}
+.g-a .gsci strong,.g-a .gex strong{color:var(--ink)}
+.gslabel{display:block;font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:.35rem}
+.g-a .gex{margin:0 1.4rem 1rem;padding:0 0 0 1rem;border-left:2px solid var(--line)}
+.g-a .plain{margin:0 1.4rem 1.3rem;background:rgba(255,255,255,.035);border:1px dashed rgba(255,255,255,.22);
+  border-radius:12px;padding:1rem 1.2rem;font-size:.96rem;color:var(--muted)}
+.g-a .plain b{color:var(--ink)}
+.g-a .plain .plabel{display:block;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:.35rem}
+.take-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.6rem}
+@media(max-width:720px){.take-grid{grid-template-columns:1fr}}
+.take{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem}
+.take .tk{font-size:1.5rem;margin-bottom:.5rem}
+.take h4{font-size:1.05rem;font-weight:800;margin-bottom:.4rem}
+.take p{color:var(--muted);font-size:.95rem}
+.take p strong{color:var(--ink)}
+.limits{background:rgba(251,113,133,.05);border:1px solid rgba(251,113,133,.3);border-radius:var(--radius);
+  padding:1.4rem 1.6rem;margin-bottom:1.6rem}
+.limits h3{font-family:var(--disp);font-size:1.2rem;font-weight:800;margin-bottom:.7rem;color:var(--rose)}
+.limits ul{list-style:none;display:grid;gap:.6rem}
+.limits li{color:var(--muted);font-size:.97rem;padding-left:1.6rem;position:relative}
+.limits li::before{content:"✕";position:absolute;left:0;color:var(--rose);font-weight:800}
+.limits li strong{color:var(--ink)}
+footer{position:relative;z-index:1;margin-top:4rem;border-top:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+footer .wrap{padding-top:2.5rem;padding-bottom:3rem}
+footer .disc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;margin-bottom:1.4rem}
+footer .disc h3{font-size:1rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;color:var(--amber)}
+footer .disc p{color:var(--muted);font-size:.92rem;margin-bottom:.8rem}
+footer .disc p strong{color:var(--ink)}
+footer .meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+  color:var(--faint);font-size:.85rem}
+footer .meta .srcs{display:flex;gap:.6rem;flex-wrap:wrap}
+footer .meta a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--faint)}
+footer .meta a:hover{color:var(--ink)}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-bottom:1.4rem}
+@media(max-width:720px){.cmp{grid-template-columns:1fr}}
+.cmp .card{text-align:center}
+.cmp .big{font-family:var(--disp);font-size:2.3rem;font-weight:800;margin:.4rem 0}
+.cmp.sky .big{color:var(--sky)}.cmp .card.sky .big{color:var(--sky)}
+.cmp .card.teal .big{color:var(--teal)}
+.cmp .card.org .big{color:var(--org)}
+.cmp .sub2{font-size:.82rem;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+table.trial{width:100%;border-collapse:collapse;font-size:.94rem;margin:1rem 0 1.4rem}
+table.trial th,table.trial td{text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--line)}
+table.trial th{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:800}
+table.trial td{color:var(--muted)}
+table.trial td strong{color:var(--ink);font-variant-numeric:tabular-nums}
+table.trial tr td:first-child{color:var(--ink);font-weight:600}
+.twrap{overflow-x:auto}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .in .ebar .fill{transition:none}
+}
+</style>
+</head>
+<body>
+<svg class="sr-only" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="triGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7cc7ff"/><stop offset="50%" stop-color="#5eead4"/><stop offset="100%" stop-color="#fb923c"/>
+    </linearGradient>
+  </defs>
+</svg>
+<div class="bg-grad" aria-hidden="true"></div>
+<svg id="dots" aria-hidden="true"></svg>
+<div class="orb o1" aria-hidden="true"></div><div class="orb o2" aria-hidden="true"></div><div class="orb o3" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div id="doneToast" role="status">You made it through the triple agonist 🎉</div>
+<div id="progress" aria-hidden="true"></div>
+<button id="themeToggle" aria-label="Toggle light or dark theme">
+  <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+  <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 14.2A8.5 8.5 0 0 1 9.8 3.6a.7.7 0 0 0-.9-.9 10.5 10.5 0 1 0 12.4 12.4.7.7 0 0 0-.9-.9Z"/></svg>
+</button>
+<aside class="toc" aria-label="Chapters">
+  <div class="brand">Retatrutide<br><span class="g">the triple agonist</span></div>
+  <div class="toc-pill" aria-hidden="true"></div>
+  <a href="#ch1"><span class="n">01</span>The Molecule</a>
+  <a href="#ch2"><span class="n">02</span>Three Pathways</a>
+  <a href="#ch3"><span class="n">03</span>Trial Results</a>
+  <a href="#ch4"><span class="n">04</span>How It Differs</a>
+  <a href="#ch5"><span class="n">05</span>Trial Dosing</a>
+  <a href="#ch6"><span class="n">06</span>What People Say</a>
+  <a href="#ch7"><span class="n">07</span>Safety</a>
+  <a href="#ch8"><span class="n">08</span>Glossary</a>
+  <a href="#ch9"><span class="n">09</span>Takeaways</a>
+  <div class="mini"><span>Read</span><span id="tocPct">0%</span></div>
+  <div class="mini-bar"><i id="tocBar"></i></div>
+</aside>
+<nav class="chapters" aria-label="Chapters"><div class="rail" id="rail">
+  <a href="#ch1">01 · Molecule</a><a href="#ch2">02 · Pathways</a><a href="#ch3">03 · Trials</a>
+  <a href="#ch4">04 · Differs</a><a href="#ch5">05 · Dosing</a><a href="#ch6">06 · Reports</a><a href="#ch7">07 · Safety</a>
+  <a href="#ch8">08 · Glossary</a><a href="#ch9">09 · Takeaways</a>
+</div></nav>
+
+<header class="hero">
+  <div class="badge"><span class="dot"></span>GLP-1 · GIP · Glucagon</div>
+  <h1>Retatrutide<br><span class="g">the triple agonist</span></h1>
+  <p class="sub">One molecule, three hormonal switches — <strong>GLP-1</strong>, <strong>GIP</strong>, and <strong>glucagon</strong>. The newest idea in obesity medicine: suppress appetite <em>and</em> turn up energy burn at the same time. Here is what the trials actually show, separated from the hype.</p>
+  <div class="quickread">
+    <span class="tag">Quick read</span>
+    <p><strong>Retatrutide (LY3437943)</strong> is Eli Lilly's once-weekly triple-receptor agonist for obesity, with an FDA filing expected around <strong>Q1 2027</strong>. In the phase 3 TRIUMPH-1 trial, the highest dose averaged <strong>28.3% weight loss over 80 weeks</strong>, the largest ever reported for a drug in an obesity trial — but nausea and vomiting were common, and <strong>11.3%</strong> stopped treatment because of side effects. Scroll for the full picture.</p>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="num" data-count="28.3" data-decimals="1" data-prefix="−" data-suffix="%">0</div><div class="lbl">80-wk weight loss, 12 mg</div></div>
+    <div class="stat"><div class="num" data-count="3">0</div><div class="lbl">Receptors targeted</div></div>
+    <div class="stat"><div class="num" data-count="39">0</div><div class="lbl">Amino acids</div></div>
+    <div class="stat"><div class="num" data-count="6">0</div><div class="lbl">Day half-life ≈ weekly</div></div>
+  </div>
+  <div class="scroll-hint">Scroll ↓</div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ CHAPTER 1 ============ -->
+<section class="chapter" id="ch1">
+  <span class="eyebrow"><span class="n">01</span>The molecule</span>
+  <h2>What <span class="hl">retatrutide</span> actually is</h2>
+  <p class="lede">Retatrutide (development code <strong>LY3437943</strong>) is a synthetic peptide built on a GIP-like backbone, engineered to press three hormonal buttons at once. A fatty-acid tail stuck to the molecule lets it linger in the blood for about <strong>six days</strong> — the reason one injection a week is enough to keep it working.</p>
+  <div class="diagram reveal">
+    <svg viewBox="0 0 900 220" role="img" aria-label="Diagram of retatrutide as a chain of 39 amino-acid beads with a fatty-acid tail">
+      <defs>
+        <linearGradient id="beadTri" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#7cc7ff"/><stop offset=".5" stop-color="#5eead4"/><stop offset="1" stop-color="#fb923c"/>
+        </linearGradient>
+      </defs>
+      <text x="450" y="26" text-anchor="middle" fill="#edf0f9" font-size="19" font-weight="700" font-family="inherit">39-amino-acid peptide + C20 fatty-acid tail</text>
+      <g id="retaBeads"></g>
+      <path d="M 735 150 q 45 30 90 8" stroke="#a9b1c9" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <g class="float-slower"><rect x="820" y="140" width="66" height="40" rx="12" fill="none" stroke="#fb923c" stroke-width="4"/>
+      <text x="853" y="166" text-anchor="middle" fill="#fb923c" font-size="15" font-weight="800">C20</text></g>
+      <text x="853" y="205" text-anchor="middle" fill="#7f88a5" font-size="13">fatty-acid tail</text>
+      <text x="150" y="205" text-anchor="middle" fill="#7f88a5" font-size="13">peptide backbone (GIP-like)</text>
+    </svg>
+    <div class="cap">Each bead is one amino acid; the C20 tail is what stretches the half-life to ~6 days.</div>
+  </div>
+  <div class="grid3">
+    <div class="card sky reveal"><h3>39 <span class="chem">AMINO ACIDS</span></h3><p>A <strong>single molecule</strong> engineered from a GIP-like template, with tweaks that let it also activate the GLP-1 and glucagon receptors.</p></div>
+    <div class="card teal reveal"><h3>LY3437943 <span class="chem">ELI LILLY</span></h3><p>Developed by <strong>Eli Lilly</strong>, the same company behind tirzepatide. It is a prescription-track drug candidate — <strong>not a supplement</strong>.</p></div>
+    <div class="card org reveal"><h3>Late-stage <span class="chem">CLINICAL PROGRAM</span></h3><p>Five phase 3 trials have reported results; Lilly plans to file for approval in <strong>Q1 2027</strong>.</p></div>
+  </div>
+  <div class="plain reveal"><span class="plabel">Plain English</span><b>Think of it as a hormone impersonator.</b> Your gut naturally releases GLP-1, GIP, and glucagon after eating. Retatrutide is a lab-built molecule that pretends to be all three at once — and it sticks around for a week instead of minutes.</div>
+</section>
+
+<!-- ============ CHAPTER 2 ============ -->
+<section class="chapter" id="ch2">
+  <span class="eyebrow"><span class="n">02</span>Three pathways</span>
+  <h2>One molecule, <span class="hl">three switches</span></h2>
+  <p class="lede">The triple action is the whole pitch. Each receptor pulls a different lever — and the <strong>glucagon</strong> lever is the one no earlier obesity drug has ever pulled. Its potency ranking: <strong>GIP strongest, then GLP-1, then glucagon</strong>.</p>
+  <div class="diagram reveal">
+    <svg viewBox="0 0 900 430" role="img" aria-label="Diagram of retatrutide activating three receptors with different effects">
+      <g class="float-slow">
+        <circle cx="450" cy="150" r="58" fill="#0d1020" stroke="url(#triGrad)" stroke-width="6"/>
+        <text x="450" y="144" text-anchor="middle" fill="#edf0f9" font-size="20" font-weight="800">RETA</text>
+        <text x="450" y="168" text-anchor="middle" fill="#7f88a5" font-size="13">one molecule</text>
+      </g>
+      <g class="glow-pulse"><circle cx="450" cy="150" r="74" fill="none" stroke="url(#triGrad)" stroke-width="2" opacity=".5"/></g>
+      <line class="flow" x1="450" y1="208" x2="150" y2="330" stroke="#7cc7ff" stroke-width="4"/>
+      <line class="flow" x1="450" y1="208" x2="450" y2="330" stroke="#5eead4" stroke-width="4"/>
+      <line class="flow" x1="450" y1="208" x2="750" y2="330" stroke="#fb923c" stroke-width="4"/>
+      <g><rect x="60" y="330" width="180" height="86" rx="14" fill="#0d1020" stroke="#0284c7" stroke-width="3"/>
+        <text x="150" y="360" text-anchor="middle" fill="#7cc7ff" font-size="16" font-weight="800">GLP-1 receptor</text>
+        <text x="150" y="386" text-anchor="middle" fill="#a9b1c9" font-size="13">eat less · feel full</text>
+        <text x="150" y="404" text-anchor="middle" fill="#7f88a5" font-size="12">appetite switch</text></g>
+      <g><rect x="360" y="330" width="180" height="86" rx="14" fill="#0d1020" stroke="#0d9488" stroke-width="3"/>
+        <text x="450" y="360" text-anchor="middle" fill="#5eead4" font-size="16" font-weight="800">GIP receptor</text>
+        <text x="450" y="386" text-anchor="middle" fill="#a9b1c9" font-size="13">insulin · blood sugar</text>
+        <text x="450" y="404" text-anchor="middle" fill="#7f88a5" font-size="12">metabolism switch</text></g>
+      <g><rect x="660" y="330" width="180" height="86" rx="14" fill="#0d1020" stroke="#c2410c" stroke-width="3"/>
+        <text x="750" y="360" text-anchor="middle" fill="#fb923c" font-size="16" font-weight="800">Glucagon receptor</text>
+        <text x="750" y="386" text-anchor="middle" fill="#a9b1c9" font-size="13">burn more energy</text>
+        <text x="750" y="404" text-anchor="middle" fill="#7f88a5" font-size="12">furnace switch — NEW</text></g>
+      <text x="450" y="52" text-anchor="middle" fill="#edf0f9" font-size="18" font-weight="700">Three receptors, one injection</text>
+    </svg>
+    <div class="cap">Signal flows from the molecule (top) to each receptor's job below. Glucagon is the new addition vs. tirzepatide.</div>
+  </div>
+  <div class="kv reveal"><span class="k s">GLP-1</span><p><strong>The appetite switch.</strong> Slows stomach emptying, quiets food cravings, helps the brain feel full sooner. This is the lever semaglutide and tirzepatide already pull — it's the best-understood of the three.</p></div>
+  <div class="kv reveal"><span class="k t">GIP</span><p><strong>The metabolism switch.</strong> Boosts insulin release when blood sugar rises and improves how cells respond to insulin. Retatrutide's <strong>strongest</strong> activity is here — it was built on a GIP-like backbone.</p></div>
+  <div class="kv reveal"><span class="k o">Glucagon</span><p><strong>The furnace switch.</strong> Raises energy expenditure and fat burning — calories out, not just calories in. This is the experimental edge: glucagon agonism had never been combined with the other two in a weight-loss drug before.</p></div>
+  <div class="plain reveal"><span class="plabel">Plain English</span>Earlier drugs mostly worked on <b>eating less</b>. Retatrutide adds <b>burning more</b>. That's the two-sided bet: smaller appetite on one side, a hotter metabolic furnace on the other.</div>
+</section>
+<!-- ============ CHAPTER 3 ============ -->
+<section class="chapter" id="ch3">
+  <span class="eyebrow"><span class="n">03</span>Evidence check</span>
+  <h2>What the <span class="hl">trials</span> actually show</h2>
+  <p class="lede">This is the rare obesity drug with <strong>real phase 3 data</strong> — five late-stage trials have reported. The numbers below are from the trials' official results, with the exact population and duration attached, because <strong>context is what separates evidence from marketing</strong>.</p>
+  <div class="panel reveal">
+    <h3>TRIUMPH-1 · the pivotal phase 3 trial</h3>
+    <p>2,339 adults with obesity or overweight, <strong>no diabetes</strong>, 80 weeks, randomized to retatrutide 4 mg / 9 mg / 12 mg / placebo. Started at a low weekly dose and stepped up every 4 weeks to the assigned target — a trial design, not a how-to.</p>
+    <div class="ebar"><div class="row"><span class="t">12 mg — highest dose</span><span class="v">−28.3% avg · −31.9 kg</span></div><div class="track"><div class="fill" style="--w:94%;background:linear-gradient(90deg,#fb923c,#fbbf24)"></div></div><div class="note">45.3% of this group lost <strong>≥30%</strong> of body weight. In the BMI 35+ extension, weight loss reached <strong>30.3%</strong> at 104 weeks.</div></div>
+    <div class="ebar"><div class="row"><span class="t">9 mg</span><span class="v">−25.9% avg · −29.2 kg</span></div><div class="track"><div class="fill" style="--w:86%;background:linear-gradient(90deg,#5eead4,#fb923c)"></div></div></div>
+    <div class="ebar"><div class="row"><span class="t">4 mg</span><span class="v">−19.0% avg · −21.4 kg</span></div><div class="track"><div class="fill" style="--w:63%;background:linear-gradient(90deg,#7cc7ff,#5eead4)"></div></div></div>
+    <div class="ebar"><div class="row"><span class="t">Placebo</span><span class="v">−2.2% avg · −2.5 kg</span></div><div class="track"><div class="fill" style="--w:8%;background:#525a78"></div></div></div>
+    <div class="plain"><span class="plabel">Plain English</span>The top dose beat every weight-loss drug ever tested — <b>by a lot</b>. But the average hides a spread: some people lost far more, some far less, and 1 in 9 quit over side effects.</div>
+  </div>
+  <div class="panel reveal">
+    <h3>The other phase 3 readouts</h3>
+    <div class="twrap"><table class="trial">
+      <thead><tr><th>Trial</th><th>Population</th><th>12 mg result (80 wks)</th><th>Notable</th></tr></thead>
+      <tbody>
+        <tr><td>TRIUMPH-2</td><td>1,152 with obesity + type 2 diabetes</td><td><strong>−20.8%</strong> (vs −3.2% placebo)</td><td>HbA1c dropped ~1.5 points; ~6 in 10 no longer had obesity by BMI</td></tr>
+        <tr><td>TRIUMPH-3</td><td>1,949 with severe obesity + heart disease</td><td><strong>−22.6%</strong> (vs −3.2% placebo)</td><td>Did not prove a cardiovascular-risk reduction</td></tr>
+        <tr><td>TRIUMPH-4</td><td>Obesity + knee osteoarthritis (68 wks)</td><td><strong>−28.7%</strong></td><td>Largest single-trial figure reported so far</td></tr>
+        <tr><td>Phase 2 (NEJM 2023)</td><td>Obesity, no diabetes (48 wks)</td><td><strong>−24.2%</strong> (1→12 mg arms)</td><td>Weight-loss curve had still <strong>not plateaued</strong> at 48 weeks</td></tr>
+      </tbody>
+    </table></div>
+    <div class="kv"><span class="k o">Liver fat</span><p>A liver-fat substudy showed roughly <strong>86% relative reduction</strong> in liver fat at 12 mg — relevant for fatty-liver disease research, where TRIUMPH data are being watched closely.</p></div>
+    <div class="kv"><span class="k a">Important caveat</span><p>These are <strong>top-line / efficacy estimates</strong> — what happened if people stayed on treatment. Counting everyone randomized (including dropouts), TRIUMPH-1's 12 mg figure was <strong>25.0%</strong> instead of 28.3%. Full peer-reviewed papers are still pending for several trials.</p></div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 4 ============ -->
+<section class="chapter" id="ch4">
+  <span class="eyebrow"><span class="n">04</span>How it differs</span>
+  <h2>Single, double, <span class="hl">triple</span></h2>
+  <p class="lede">Each generation added a receptor — and a new chunk of weight loss. Retatrutide's leap over tirzepatide is widely attributed to the <strong>glucagon</strong> component: burning calories, not just curbing them.</p>
+  <div class="cmp">
+    <div class="card sky reveal"><div class="sub2">Semaglutide · GLP-1 only</div><div class="big">−14.9%</div><p><strong>Ozempic / Wegovy.</strong> One receptor, the appetite switch. The benchmark everything since has been measured against.</p></div>
+    <div class="card teal reveal"><div class="sub2">Tirzepatide · GLP-1 + GIP</div><div class="big">−20.9%</div><p><strong>Mounjaro / Zepbound.</strong> Added the GIP switch — better blood sugar control and another ~6 points of weight loss.</p></div>
+    <div class="card org reveal"><div class="sub2">Retatrutide · + glucagon</div><div class="big">−28.3%</div><p><strong>Triple agonist.</strong> Added the furnace switch — energy expenditure joins appetite suppression. ~8 points above tirzepatide in trial-vs-trial comparison.</p></div>
+  </div>
+  <div class="diagram reveal">
+    <svg viewBox="0 0 900 300" role="img" aria-label="Diagram comparing appetite suppression and energy burn across the three drug generations">
+      <text x="450" y="28" text-anchor="middle" fill="#edf0f9" font-size="18" font-weight="700">Each generation adds a lever</text>
+      <g font-size="14" font-weight="700">
+        <text x="150" y="70" text-anchor="middle" fill="#7cc7ff">SEMAGLUTIDE</text>
+        <text x="450" y="70" text-anchor="middle" fill="#5eead4">TIRZEPATIDE</text>
+        <text x="750" y="70" text-anchor="middle" fill="#fb923c">RETATRUTIDE</text>
+      </g>
+      <g font-size="13" fill="#a9b1c9">
+        <text x="150" y="110" text-anchor="middle">eat less <tspan fill="#7cc7ff" font-size="18">●</tspan></text>
+        <text x="150" y="140" text-anchor="middle" fill="#525a78">burn more <tspan font-size="18">○</tspan></text>
+        <text x="450" y="110" text-anchor="middle">eat less <tspan fill="#7cc7ff" font-size="18">●</tspan> <tspan fill="#5eead4" font-size="18">●</tspan></text>
+        <text x="450" y="140" text-anchor="middle" fill="#525a78">burn more <tspan font-size="18">○</tspan></text>
+        <text x="750" y="110" text-anchor="middle">eat less <tspan fill="#7cc7ff" font-size="18">●</tspan> <tspan fill="#5eead4" font-size="18">●</tspan></text>
+        <text x="750" y="140" text-anchor="middle">burn more <tspan fill="#fb923c" font-size="18">●</tspan></text>
+      </g>
+      <g class="float-slow">
+        <rect x="470" y="185" width="390" height="92" rx="14" fill="#0d1020" stroke="#c2410c" stroke-width="3"/>
+        <text x="665" y="216" text-anchor="middle" fill="#fb923c" font-size="15" font-weight="800">THE GLUCAGON EDGE</text>
+        <text x="665" y="242" text-anchor="middle" fill="#a9b1c9" font-size="13">calories OUT joins calories IN</text>
+        <text x="665" y="262" text-anchor="middle" fill="#7f88a5" font-size="12">first drug class to do both</text>
+      </g>
+      <g class="float-slower">
+        <rect x="40" y="185" width="390" height="92" rx="14" fill="#0d1020" stroke="#0284c7" stroke-width="3"/>
+        <text x="235" y="216" text-anchor="middle" fill="#7cc7ff" font-size="15" font-weight="800">NOT A FREE UPGRADE</text>
+        <text x="235" y="242" text-anchor="middle" fill="#a9b1c9" font-size="13">more levers = more side effects</text>
+        <text x="235" y="262" text-anchor="middle" fill="#7f88a5" font-size="12">nausea 42% · vomiting 25% at 12 mg</text>
+      </g>
+    </svg>
+    <div class="cap">Filled dots = levers each drug pulls. The furnace lever is retatrutide's alone — and its price shows up in tolerability.</div>
+  </div>
+  <div class="plain reveal"><span class="plabel">Plain English</span>Think of it like three generations of the same idea: <b>semaglutide</b> turned down hunger. <b>Tirzepatide</b> turned down hunger and fixed blood sugar better. <b>Retatrutide</b> does both <i>and</i> turns up the body's calorie burn — which is why it wins on weight but loses on comfort.</div>
+</section>
+<!-- ============ CHAPTER 5 ============ -->
+<section class="chapter" id="ch5">
+  <span class="eyebrow"><span class="n">05</span>Trial dosing</span>
+  <h2>How the <span class="hl">trials</span> dosed it</h2>
+  <p class="lede">This is the dosing from the published trial designs — how Lilly actually ran the studies. It is a record of trial protocol, <strong>not a recommendation</strong>, and this page deliberately contains no dosing instructions (see Limits).</p>
+  <div class="diagram reveal">
+    <svg viewBox="0 0 900 400" role="img" aria-label="Step diagram of the TRIUMPH-1 dose escalation ladder">
+      <text x="450" y="34" text-anchor="middle" fill="#edf0f9" font-size="18" font-weight="700">TRIUMPH-1 escalation ladder</text>
+      <text x="450" y="60" text-anchor="middle" fill="#7f88a5" font-size="14">every arm started at 2 mg · one step up every 4 weeks</text>
+      <line class="flow" x1="132" y1="180" x2="208" y2="180" stroke="#7cc7ff" stroke-width="4"/>
+      <line class="flow" x1="312" y1="180" x2="388" y2="180" stroke="#7cc7ff" stroke-width="4"/>
+      <line class="flow" x1="492" y1="180" x2="568" y2="180" stroke="#5eead4" stroke-width="4"/>
+      <line class="flow" x1="672" y1="180" x2="748" y2="180" stroke="#fb923c" stroke-width="4"/>
+      <g><circle cx="80" cy="180" r="46" fill="#0d1020" stroke="url(#triGrad)" stroke-width="4"/>
+        <text x="80" y="174" text-anchor="middle" fill="#edf0f9" font-size="20" font-weight="800">2 mg</text>
+        <text x="80" y="197" text-anchor="middle" fill="#7f88a5" font-size="12">start</text>
+        <text x="80" y="256" text-anchor="middle" fill="#a9b1c9" font-size="13">wks 1–4</text>
+        <text x="80" y="276" text-anchor="middle" fill="#7f88a5" font-size="12">all arms</text></g>
+      <g><circle cx="260" cy="180" r="46" fill="#0d1020" stroke="url(#triGrad)" stroke-width="4"/>
+        <text x="260" y="174" text-anchor="middle" fill="#edf0f9" font-size="20" font-weight="800">4 mg</text>
+        <text x="260" y="197" text-anchor="middle" fill="#7f88a5" font-size="12">step 1</text>
+        <text x="260" y="256" text-anchor="middle" fill="#a9b1c9" font-size="13">wks 5–8</text>
+        <text x="260" y="276" text-anchor="middle" fill="#7cc7ff" font-size="12">4 mg arm holds</text></g>
+      <g><circle cx="440" cy="180" r="46" fill="#0d1020" stroke="url(#triGrad)" stroke-width="4"/>
+        <text x="440" y="174" text-anchor="middle" fill="#edf0f9" font-size="20" font-weight="800">6 mg</text>
+        <text x="440" y="197" text-anchor="middle" fill="#7f88a5" font-size="12">step 2</text>
+        <text x="440" y="256" text-anchor="middle" fill="#a9b1c9" font-size="13">wks 9–12</text>
+        <text x="440" y="276" text-anchor="middle" fill="#7f88a5" font-size="12">transit step</text></g>
+      <g><circle cx="620" cy="180" r="46" fill="#0d1020" stroke="url(#triGrad)" stroke-width="4"/>
+        <text x="620" y="174" text-anchor="middle" fill="#edf0f9" font-size="20" font-weight="800">9 mg</text>
+        <text x="620" y="197" text-anchor="middle" fill="#7f88a5" font-size="12">step 3</text>
+        <text x="620" y="256" text-anchor="middle" fill="#a9b1c9" font-size="13">wks 13–16</text>
+        <text x="620" y="276" text-anchor="middle" fill="#5eead4" font-size="12">9 mg arm holds</text></g>
+      <g><circle cx="800" cy="180" r="46" fill="#0d1020" stroke="url(#triGrad)" stroke-width="4"/>
+        <text x="800" y="174" text-anchor="middle" fill="#edf0f9" font-size="20" font-weight="800">12 mg</text>
+        <text x="800" y="197" text-anchor="middle" fill="#7f88a5" font-size="12">step 4</text>
+        <text x="800" y="256" text-anchor="middle" fill="#a9b1c9" font-size="13">wk 17+</text>
+        <text x="800" y="276" text-anchor="middle" fill="#fb923c" font-size="12">12 mg arm holds</text></g>
+    </svg>
+    <div class="cap">Step-wise escalation every 4 weeks in TRIUMPH-1. The 4 mg arm stopped after the first step, the 9 mg arm after three — only the 12 mg arm climbed the full ladder. Design disclosed by Lilly.</div>
+  </div>
+  <div class="kv reveal"><span class="k s">4 mg arm</span><p>2 mg for four weeks, then 4 mg held to week 80. Averaged <strong>−19.0% (−21.4 kg)</strong> — more than semaglutide’s 2.4 mg result, at the lowest dose Lilly tested.</p></div>
+  <div class="kv reveal"><span class="k t">9 mg arm</span><p>2 → 4 → 6 → 9 mg across 12 weeks, then held. Averaged <strong>−25.9% (−29.2 kg)</strong> at 80 weeks.</p></div>
+  <div class="kv reveal"><span class="k o">12 mg arm</span><p>The full ladder — 2 → 4 → 6 → 9 → 12 mg across 16 weeks, held from week 17. Averaged <strong>−28.3% (−31.9 kg)</strong>: the headline figure.</p></div>
+  <div class="kv reveal"><span class="k a">Why escalate at all</span><p>Gut side effects cluster in the <strong>titration phase</strong>, not at maintenance — nausea hit 42.4% in the 12 mg arm. The 4-week steps exist so the gut can adapt; phase 2 work confirmed that starting at 2 mg rather than 4 mg cut GI side effects without hurting final weight loss.</p></div>
+  <div class="plain reveal"><span class="plabel">Plain English</span>Wading into cold water instead of cannonballing. The trials raised the dose in slow 4-week steps so participants’ stomachs could adjust — <b>nobody started at the top dose</b>, and the side-effect numbers can’t be separated from that gradual ramp.</div>
+</section>
+
+<!-- ============ CHAPTER 6 ============ -->
+<section class="chapter" id="ch6">
+  <span class="eyebrow"><span class="n">06</span>What people say</span>
+  <h2>Reports from <span class="hl">the wild</span></h2>
+  <p class="lede">Most of what people post online comes from clinical-trial participants and the gray-market research-peptide scene. These are <strong>stories, not data</strong>: vivid, unverified, and often written by people with something to sell.</p>
+  <div class="folk-note reveal"><strong>Read these the way scientists read them:</strong> as anecdotes — useful for knowing what questions to ask, useless for predicting what would happen to you. Every card below is stamped <strong>unverified</strong>. Reported trial side effects are in Chapter 7.</div>
+  <div class="anec-grid">
+    <div class="anec reveal"><span class="stamp">Unverified anecdote</span><div class="anec-head"><svg class="thumb" viewBox="0 0 54 54" aria-hidden="true"><rect width="54" height="54" rx="14" fill="#10142a"/><circle cx="27" cy="22" r="9" fill="#7cc7ff" opacity=".55"/><path d="M8 50c4-10 12-14 19-14s15 4 19 14" fill="#7cc7ff" opacity=".55"/></svg><h4>The appetite just… went quiet</h4></div><p>"Week three and I walked past a bakery and felt <strong>nothing</strong>. Not willpower — the wanting itself was gone." <strong>Caveat:</strong> dramatic versions of this get repeated because they're dramatic; quiet non-responders don't post.</p><div class="caveat">Pattern: matches the GLP-1 appetite effect seen across the whole drug class — nothing unique to retatrutide.</div></div>
+    <div class="anec reveal"><span class="stamp">Unverified anecdote</span><div class="anec-head"><svg class="thumb" viewBox="0 0 54 54" aria-hidden="true"><rect width="54" height="54" rx="14" fill="#10142a"/><path d="M14 34c6-14 20-14 26 0" stroke="#fb923c" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="27" cy="16" r="5" fill="#fb923c" opacity=".6"/></svg><h4>"I felt like I was running hot"</h4></div><p>"Hands and feet warm all the time, like my thermostat got turned up. Sweating through shirts at my desk." <strong>Caveat:</strong> could be the glucagon furnace effect — or could be anxiety, a warm room, anything.</p><div class="caveat">Pattern: the 'running hot' report is retatrutide-specific in forums; it barely appears for semaglutide.</div></div>
+    <div class="anec reveal"><span class="stamp">Unverified anecdote</span><div class="anec-head"><svg class="thumb" viewBox="0 0 54 54" aria-hidden="true"><rect width="54" height="54" rx="14" fill="#10142a"/><path d="M12 27h30M27 12v30" stroke="#5eead4" stroke-width="6" stroke-linecap="round"/></svg><h4>The nausea wall</h4></div><p>"First month was amazing, then the nausea hit like a truck. Couldn't look at chicken for two weeks." <strong>Caveat:</strong> trial data back this up — 42% nausea at 12 mg — but forum doses and ramps are uncontrolled.</p><div class="caveat">Pattern: tolerability complaints scale with dose, exactly like the trials show.</div></div>
+    <div class="anec reveal"><span class="stamp">Unverified anecdote</span><div class="anec-head"><svg class="thumb" viewBox="0 0 54 54" aria-hidden="true"><rect width="54" height="54" rx="14" fill="#10142a"/><circle cx="27" cy="27" r="12" fill="none" stroke="#a9b1c9" stroke-width="5"/><path d="M27 15v12l8 5" stroke="#a9b1c9" stroke-width="4" fill="none" stroke-linecap="round"/></svg><h4>"Nothing happened to me"</h4></div><p>"Eight weeks, barely three pounds. Either my vial was bunk or I'm a non-responder." <strong>Caveat:</strong> gray-market vials are frequently underdosed or fake — and some people genuinely respond less.</p><div class="caveat">Pattern: non-response stories cluster around gray-market sourcing, a quality-control red flag.</div></div>
+    <div class="anec reveal"><span class="stamp">Unverified anecdote</span><div class="anec-head"><svg class="thumb" viewBox="0 0 54 54" aria-hidden="true"><rect width="54" height="54" rx="14" fill="#10142a"/><path d="M10 40l8-16 8 10 8-20 10 26" stroke="#fb923c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><h4>Weight fell off a cliff</h4></div><p>"Down 60 pounds in five months. My doctor didn't believe the chart." <strong>Caveat:</strong> extreme results get upvoted; the trial <em>average</em> was ~28% over 80 weeks, not 5 months.</p><div class="caveat">Pattern: timelines in viral posts are often compressed vs. what trials measured.</div></div>
+    <div class="anec reveal"><span class="stamp">Unverified anecdote</span><div class="anec-head"><svg class="thumb" viewBox="0 0 54 54" aria-hidden="true"><rect width="54" height="54" rx="14" fill="#10142a"/><rect x="14" y="20" width="26" height="18" rx="4" fill="none" stroke="#7cc7ff" stroke-width="4"/><path d="M20 20v-5h14v5" stroke="#7cc7ff" stroke-width="4" fill="none"/></svg><h4>The access scramble</h4></div><p>"Can't get it legally, can't afford the gray market either. Watching trial results like sports scores." <strong>Caveat:</strong> this is the honest majority — waiting, not using.</p><div class="caveat">Pattern: the loudest voices online are the least representative of actual users.</div></div>
+    <div class="anec reveal"><span class="stamp">Unverified anecdote</span><div class="anec-head"><svg class="thumb" viewBox="0 0 54 54" aria-hidden="true"><rect width="54" height="54" rx="14" fill="#10142a"/><path d="M18 36c-4-8 2-16 9-16s13 8 9 16" stroke="#5eead4" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="27" cy="38" r="4" fill="#5eead4"/></svg><h4>Muscle loss panic</h4></div><p>"Lost 40 pounds but my arms look deflated. Nobody warned me about the muscle." <strong>Caveat:</strong> rapid weight loss sheds lean mass with ANY method — but protein intake and lifting weren't controlled in these stories.</p><div class="caveat">Pattern: a real concern across all GLP-1 drugs; trials are now measuring body composition more carefully.</div></div>
+    <div class="anec reveal"><span class="stamp">Unverified anecdote</span><div class="anec-head"><svg class="thumb" viewBox="0 0 54 54" aria-hidden="true"><rect width="54" height="54" rx="14" fill="#10142a"/><circle cx="22" cy="27" r="7" fill="#7cc7ff" opacity=".5"/><circle cx="34" cy="27" r="7" fill="#fb923c" opacity=".5"/></svg><h4>"Stronger than tirz, rougher than tirz"</h4></div><p>"Switched from tirzepatide. Hunger control is on another level — and so is the nausea." <strong>Caveat:</strong> no head-to-head trial vs. tirzepatide has reported yet; one is now running.</p><div class="caveat">Pattern: the efficacy–tolerability trade-off is the most consistent theme across all reports.</div></div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 7 ============ -->
+<section class="chapter" id="ch7">
+  <span class="eyebrow"><span class="n">07</span>Safety</span>
+  <h2>The <span class="hl">price</span> of the furnace</h2>
+  <p class="lede">More levers, more side effects. The safety picture comes from <strong>thousands of trial participants</strong> — the strongest evidence in this whole story — and it splits into what trials <strong>measured</strong>, what the drug class <strong>suggests</strong>, and what is still <strong>unknown</strong>.</p>
+  <div class="safety-grid">
+    <div class="scard lvl-known reveal"><span class="level">Measured in trials</span><h4>Gut effects dominate</h4><p>At 12 mg: <strong>nausea 42.4%</strong>, <strong>vomiting 25.3%</strong>. <strong>11.3%</strong> of the 12 mg group quit TRIUMPH-1 because of side effects. Mostly mild-to-moderate, mostly during dose escalation — but "mostly" is cold comfort if you're the one vomiting.</p></div>
+    <div class="scard lvl-known reveal"><span class="level">Measured in trials</span><h4>Heart rate ticks up</h4><p>Like other incretin drugs, retatrutide raised resting heart rate by a few beats per minute. Whether that matters long-term for hearts already under strain is <strong>exactly what the TRIUMPH-3 cardiovascular data are for</strong> — and they didn't prove a risk reduction.</p></div>
+    <div class="scard lvl-theory reveal"><span class="level">Class concern</span><h4>Thyroid tumor signal (rodents)</h4><p>GLP-1 drugs carry a boxed warning about medullary thyroid tumors <strong>seen in rats and mice</strong>. No human cases tied to the class have been confirmed, but it's why people with certain thyroid cancers are excluded from trials.</p></div>
+    <div class="scard lvl-theory reveal"><span class="level">Class concern</span><h4>Pancreas &amp; gallbladder</h4><p>Pancreatitis and gallbladder problems are labeled risks for the whole incretin class. Rapid, large weight loss itself raises gallstone risk — and retatrutide produces <strong>very</strong> rapid, large weight loss.</p></div>
+    <div class="scard lvl-unknown reveal"><span class="level">Unknown</span><h4>The glucagon question</h4><p>Chronic glucagon-receptor activation in humans is <strong>uncharted territory</strong>. Glucagon raises blood sugar and heart workload in the short term; the trials suggest the other two receptors compensate — but decades-long data don't exist yet.</p></div>
+    <div class="scard lvl-unknown reveal"><span class="level">Unknown</span><h4>What happens when you stop</h4><p>With semaglutide and tirzepatide, most lost weight returns within a year of stopping. Retatrutide's maintenance data are still being collected — <strong>nobody knows if the furnace stays warm</strong> once the drug is gone.</p></div>
+  </div>
+  <div class="plain reveal"><span class="plabel">Plain English</span>The safety story is honest but incomplete: <b>the short-term side effects are well measured and mostly gut-related</b>. The long-term questions — heart, thyroid, what happens after stopping — are the same ones every new obesity drug faces, with the added twist that <b>glucagon activation is brand new in this context</b>.</div>
+</section>
+<!-- ============ CHAPTER 8 ============ -->
+<section class="chapter" id="ch8">
+  <span class="eyebrow"><span class="n">08</span>Glossary</span>
+  <h2>Speak <span class="hl">triple-agonist</span></h2>
+  <p class="lede">Twelve terms, each with <strong>the science</strong>, an <strong>example</strong>, and a <strong>plain-English translation</strong>. Tap any term to expand it.</p>
+  <div class="gloss reveal">
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(124,199,255,.12)"/><path d="M24 8c6 8 10 13 10 19a10 10 0 0 1-20 0c0-6 4-11 10-19z" fill="#7cc7ff" opacity=".85"/></svg><span class="term">GLP-1</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>Glucagon-like peptide-1, an incretin hormone secreted by L-cells in the lower gut within minutes of eating. It binds GLP-1 receptors in the pancreas (boosting glucose-dependent insulin release while suppressing glucagon), in the stomach wall (slowing emptying via the vagus nerve), and in the brain — especially the hypothalamus and hindbrain — where it damps hunger signals and amplifies fullness. Its natural half-life is barely two minutes (destroyed almost instantly by the DPP-4 enzyme), which is why drug versions are re-engineered with fatty-acid tails to survive for days.</p>
+      <p class="gex"><span class="gslabel">Example</span>The appetite lever — the one all three drug generations share. Semaglutide pulls only this lever; tirzepatide and retatrutide pull it alongside others.</p>
+      <div class="plain"><span class="plabel">Plain English</span>Your body’s natural “I’m full” signal — released by the gut the moment food arrives, telling the pancreas to handle the sugar and the brain to stop wanting more.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb v2" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(94,234,212,.12)"/><path d="M24 9l12 7v14l-12 7-12-7V16z" fill="none" stroke="#5eead4" stroke-width="3" stroke-linejoin="round"/><circle cx="24" cy="23" r="3.5" fill="#5eead4"/></svg><span class="term">GIP</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>Glucose-dependent insulinotropic polypeptide, secreted by K-cells in the upper small intestine. Its headline job is amplifying glucose-dependent insulin secretion, but GIP receptors also sit on fat tissue (influencing lipid storage and metabolism), bone, and the brain, where they modulate appetite and possibly nausea pathways. For years GIP was considered the weaker incretin for weight loss — until tirzepatide showed that strong GIP activity paired with GLP-1 produces greater weight loss than GLP-1 alone.</p>
+      <p class="gex"><span class="gslabel">Example</span>Retatrutide’s strongest activity is here — it’s built on a GIP-like backbone, and its GIP potency exceeds its GLP-1 potency.</p>
+      <div class="plain"><span class="plabel">Plain English</span>The “handle this sugar properly” signal — it tells the pancreas to release more insulin exactly when blood sugar is rising, and it seems to make the brain more receptive to fullness cues.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb v3" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(251,146,60,.12)"/><path d="M24 7c3 7 9 10 9 18a9 9 0 0 1-18 0c0-4 2-6 4-9 1 3 3 4 3 4 .5-4 1-8 2-13z" fill="#fb923c" opacity=".9"/></svg><span class="term">Glucagon</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>A 29-amino-acid hormone from pancreatic alpha cells — essentially insulin’s counterweight. When blood sugar dips, glucagon orders the liver to release stored glucose (glycogenolysis) and manufacture new glucose (gluconeogenesis). But glucagon receptors also exist on fat tissue and in the brain, where activation raises energy expenditure, increases fat oxidation, and can reduce food intake. The historic worry: pushing glucagon could push blood sugar up — which is why pairing it with GLP-1 and GIP, which push blood sugar down, is the balancing act retatrutide attempts.</p>
+      <p class="gex"><span class="gslabel">Example</span>The new lever — the first time it’s been combined with GLP-1 + GIP in a weight-loss drug. Lilly’s bet is that the energy-burn effect outweighs any glucose-raising effect while the other two levers hold blood sugar down.</p>
+      <div class="plain"><span class="plabel">Plain English</span>The body’s “burn fuel” signal — the opposite job of insulin. It tells the liver to release sugar and tells the body to spend energy, which is why drug designers now want a carefully controlled dose of it.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(124,199,255,.12)"/><circle cx="17" cy="24" r="7" fill="none" stroke="#7cc7ff" stroke-width="3.5"/><path d="M23 24h15M34 24v6M39 24v4" stroke="#7cc7ff" stroke-width="3.5" stroke-linecap="round"/></svg><span class="term">Agonist</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>A molecule that binds a receptor and switches it on, producing a biological response — the opposite of an antagonist, which binds and blocks. Agonists come in flavors: full (maximal activation), partial (sub-maximal), and biased (triggering only some of the receptor’s downstream pathways). Drug designers tune not just which receptors a molecule hits, but how hard it pushes each one — retatrutide, for instance, pushes GIP hardest, GLP-1 moderately, and glucagon gently.</p>
+      <p class="gex"><span class="gslabel">Example</span>Retatrutide is a triple agonist — one key, three locks, each turned with different force.</p>
+      <div class="plain"><span class="plabel">Plain English</span>A key that fits the lock <b>and</b> turns it. A blocker would just jam the keyhole; an agonist actually switches the thing on.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb v2" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(94,234,212,.12)"/><circle cx="18" cy="24" r="8" fill="none" stroke="#5eead4" stroke-width="3.5"/><circle cx="31" cy="24" r="8" fill="none" stroke="#5eead4" stroke-width="3.5" opacity=".65"/></svg><span class="term">Incretin</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>The family of gut-derived hormones that amplify insulin release in response to food — chiefly GLP-1 and GIP. The “incretin effect” (oral glucose triggers far more insulin than the same glucose given intravenously) was described in the 1960s and launched the entire drug class. Modern incretin drugs are engineered peptide analogs: tweaked amino-acid sequences plus fatty-acid tails that resist DPP-4 breakdown and hitch a ride on albumin, stretching a two-minute natural signal into a week-long drug.</p>
+      <p class="gex"><span class="gslabel">Example</span>“Incretin drugs” is the umbrella term for semaglutide, tirzepatide, and retatrutide — one, two, and three incretin-family levers respectively.</p>
+      <div class="plain"><span class="plabel">Plain English</span>The family name for the gut’s blood-sugar hormones. When scientists say “incretin-based therapy,” they just mean drugs that mimic or amplify what your gut already does after every meal.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb v3" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(251,146,60,.12)"/><path d="M24 8c5 7 9 12 9 17a9 9 0 0 1-18 0c0-5 4-10 9-17z" fill="none" stroke="#fb923c" stroke-width="3"/><circle cx="24" cy="26" r="3" fill="#fb923c"/></svg><span class="term">HbA1c</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>Glycated hemoglobin — the percentage of hemoglobin molecules with glucose permanently bonded to them. Because red blood cells live about three months, HbA1c reflects average blood glucose over that whole window, smoothing out daily spikes and dips. Clinical thresholds: below 5.7% is normal, 5.7–6.4% is prediabetes, 6.5% and above is diabetes. A one-point drop is considered clinically meaningful, and diabetes drugs are judged as much on HbA1c as on weight.</p>
+      <p class="gex"><span class="gslabel">Example</span>TRIUMPH-2, the trial in people with type 2 diabetes, showed roughly 1.5-point HbA1c drops — diabetes-relevant, not just weight-relevant.</p>
+      <div class="plain"><span class="plabel">Plain English</span>Your 3-month blood-sugar report card — a single number summarizing thousands of glucose readings you’d otherwise need a continuous monitor to see.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(124,199,255,.12)"/><path d="M20 8h8v10l7 12a3.5 3.5 0 0 1-3 5.5h-8a3.5 3.5 0 0 1-3-5.5l7-12z" fill="none" stroke="#7cc7ff" stroke-width="3" stroke-linejoin="round"/><path d="M21 30h14" stroke="#7cc7ff" stroke-width="3" stroke-linecap="round" opacity=".6"/></svg><span class="term">Phase 3 trial</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>Large randomized, usually double-blind and placebo-controlled trials enrolling hundreds to thousands of participants, designed to confirm that a drug works and to characterize its safety at scale. They follow Phase 1 (first-in-human safety in dozens of people) and Phase 2 (dose-finding and early efficacy signals in hundreds). Regulators base approval decisions primarily on Phase 3 data — consistent wins across multiple Phase 3 trials is the gold standard nothing else matches.</p>
+      <p class="gex"><span class="gslabel">Example</span>Retatrutide has reported five Phase 3 trials — an evidence base no research-peptide sold online will ever have.</p>
+      <div class="plain"><span class="plabel">Plain English</span>The final exam before regulators decide — thousands of real patients, a real placebo comparison, and results that have to hold up under the strictest statistical scrutiny.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb v2" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(94,234,212,.12)"/><rect x="10" y="28" width="6" height="10" rx="2" fill="#5eead4" opacity=".45"/><rect x="19" y="22" width="6" height="16" rx="2" fill="#5eead4" opacity=".65"/><rect x="28" y="12" width="6" height="26" rx="2" fill="#5eead4"/><rect x="37" y="30" width="6" height="8" rx="2" fill="#5eead4" opacity=".45"/></svg><span class="term">Efficacy estimand</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>In modern trial statistics (the ICH E9(R1) framework), an “estimand” is a precise definition of exactly what treatment effect is being estimated — including how to handle messy real-world events like people quitting the drug. The efficacy (or hypothetical) estimand asks: what would the drug’s effect be <em>if everyone had stayed on treatment</em> for the full trial? The treatment-regimen estimand instead counts everyone as randomized, quitters included. Both are legitimate; they simply answer different questions, and regulators examine both.</p>
+      <p class="gex"><span class="gslabel">Example</span>28.3% is the efficacy estimand from TRIUMPH-1; counting everyone randomized regardless of adherence, it was 25.0%. Both numbers are real — they answer different questions.</p>
+      <div class="plain"><span class="plabel">Plain English</span>“What the drug can do” vs. “what happened in the messy real trial.” The first imagines perfect adherence; the second includes everyone who quit, missed doses, or dropped out.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb v3" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(251,146,60,.12)"/><circle cx="24" cy="24" r="13" fill="none" stroke="#fb923c" stroke-width="3.5"/><path d="M24 17v7l5 3" stroke="#fb923c" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg><span class="term">Half-life</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>The time it takes for the drug’s concentration in the blood to fall by half — the standard measure of how long a drug lingers. Retatrutide’s roughly six-day half-life comes from its C20 fatty-acid tail, which makes the molecule reversibly latch onto albumin in the bloodstream, shielding it from kidney clearance and enzymatic breakdown. Rule of thumb: it takes four to five half-lives to reach steady levels — and equally long to fully wash out, so a stopped dose fades over roughly a month.</p>
+      <p class="gex"><span class="gslabel">Example</span>A ~6-day half-life is what makes once-weekly dosing possible — the same fatty-acid-tail-plus-albumin trick behind semaglutide’s and tirzepatide’s weekly schedules.</p>
+      <div class="plain"><span class="plabel">Plain English</span>How long each dose keeps working. Six days means one shot a week holds levels steady — and it also means side effects can linger for weeks after the last dose.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(124,199,255,.12)"/><ellipse cx="24" cy="26" rx="14" ry="9" fill="none" stroke="#7cc7ff" stroke-width="3.5"/><circle cx="24" cy="26" r="3.5" fill="#7cc7ff"/></svg><span class="term">Satiety</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>The post-meal state of fullness that ends eating and postpones the next meal — distinct from satiation, the fullness felt <em>during</em> a meal. It’s orchestrated by gut hormones (GLP-1, PYY, CCK), stomach stretch receptors reporting through the vagus nerve, and nutrient sensing, all integrated in the hypothalamus and hindbrain. GLP-1 drugs appear to amplify satiety on two fronts: peripherally, slower stomach emptying keeps stretch signals firing longer; centrally, direct action on brain appetite circuits turns down the drive to eat.</p>
+      <p class="gex"><span class="gslabel">Example</span>The core subjective effect trial participants and forum users alike report — and the hardest thing to measure objectively, which is why trials lean on weight and calorie-intake data instead of asking “how full did you feel?”</p>
+      <div class="plain"><span class="plabel">Plain English</span>Feeling “done” with food — not willpower, but the actual biological signal that ends a meal. It’s the sensation these drugs turn up, so smaller portions feel satisfying instead of depriving.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb v2" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(94,234,212,.12)"/><path d="M14 10h20M14 38h20M18 10c0 8 6 10 6 14s-6 6-6 14M30 10c0 8-6 10-6 14s6 6 6 14" stroke="#5eead4" stroke-width="3" fill="none" stroke-linecap="round"/></svg><span class="term">Gastric emptying</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>The rate at which the stomach meters chyme (partially digested food) through the pyloric valve into the small intestine, governed by hormonal and neural controls. GLP-1 receptor activation slows this markedly — food sits in the stomach longer, stretching it and prolonging both fullness signals and nutrient absorption. The slowdown is strongest when treatment starts and tends to ease somewhat over time (partial tolerance), though it never fully disappears.</p>
+      <p class="gex"><span class="gslabel">Example</span>Slower emptying = longer fullness — and the reason nausea and vomiting are the signature side effects. When the stomach barely drains, even a normal-sized meal can feel like too much.</p>
+      <div class="plain"><span class="plabel">Plain English</span>How fast your stomach hands food off to the gut. These drugs put that conveyor belt in slow motion — great for staying full, rough when your stomach rebels against food that refuses to leave.</div>
+    </div></div>
+    <div class="g-item"><button class="g-q" aria-expanded="false"><svg class="gthumb v3" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="rgba(251,146,60,.12)"/><circle cx="21" cy="21" r="10" fill="none" stroke="#fb923c" stroke-width="3.5"/><line x1="29" y1="29" x2="39" y2="39" stroke="#fb923c" stroke-width="3.5" stroke-linecap="round"/><text x="21" y="27" text-anchor="middle" fill="#fb923c" font-size="14" font-weight="800">?</text></svg><span class="term">Investigational</span><span class="plus">+</span></button><div class="g-a">
+      <p class="gsci"><span class="gslabel">The science</span>A formal regulatory status meaning a compound is under active clinical investigation but has not completed the phased trial program and regulatory review required for marketing approval. Investigational drugs may be given to humans only inside approved trials — with ethics oversight and informed consent — and anything sold under the same name outside that channel is manufactured without oversight of its purity, dose, or safety.</p>
+      <p class="gex"><span class="gslabel">Example</span>All the numbers on this page come from trials — the full regulatory review hasn’t happened yet, with Lilly’s filing expected around Q1 2027.</p>
+      <div class="plain"><span class="plabel">Plain English</span>Still in the testing phase. Real trials, real participants, genuinely promising results — but no regulator has yet signed off on the complete safety-and-efficacy picture.</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 9 ============ -->
+<section class="chapter" id="ch9">
+  <span class="eyebrow"><span class="n">09</span>Takeaways</span>
+  <h2>The <span class="hl">bottom line</span></h2>
+  <p class="lede">Eight chapters, distilled. What the evidence supports, what it doesn't, and what to watch next.</p>
+  <div class="take-grid">
+    <div class="take reveal"><div class="tk">🏆</div><h4>Biggest drug result ever recorded</h4><p><strong>−28.3% at 80 weeks</strong> in TRIUMPH-1 is the largest weight loss any medication has produced in a phase 3 obesity trial. Not close — decisive.</p></div>
+    <div class="take reveal"><div class="tk">🔥</div><h4>The furnace is the difference</h4><p>The <strong>glucagon</strong> component adds energy expenditure to appetite suppression — the first drug to attack both sides of the calorie equation.</p></div>
+    <div class="take reveal"><div class="tk">🤢</div><h4>Tolerability is the tax</h4><p>Nausea <strong>42%</strong>, vomiting <strong>25%</strong>, and <strong>11%</strong> quit. More efficacy, more side effects — the trade-off is the story.</p></div>
+    <div class="take reveal"><div class="tk">🧪</div><h4>Not on shelves yet</h4><p>FDA filing expected <strong>Q1 2027</strong>. Anything sold as retatrutide today is unregulated gray-market material.</p></div>
+    <div class="take reveal"><div class="tk">❓</div><h4>Long-term = unknown</h4><p>Chronic glucagon activation in humans is <strong>uncharted</strong>. Heart, thyroid, and post-stopping weight regain data are still being collected.</p></div>
+    <div class="take reveal"><div class="tk">⚖️</div><h4>Diabetes results are smaller</h4><p>In TRIUMPH-2 (with diabetes): <strong>−20.8%</strong> — still excellent, but the pattern holds: diabetes blunts weight-loss response across the class.</p></div>
+  </div>
+  <div class="limits reveal">
+    <h3>What this page does not do</h3>
+    <ul>
+      <li><strong>No dosing or administration guidance.</strong> Trial dose arms are described as trial design facts only — this page deliberately contains no instructions for obtaining, preparing, or using retatrutide or any related product.</li>
+      <li><strong>No sourcing or vendor information.</strong> Gray-market "research" vials are unregulated; this page does not help find, evaluate, or buy them.</li>
+      <li><strong>No medical advice.</strong> Nothing here is a recommendation for or against any treatment. Talk to a qualified clinician.</li>
+      <li><strong>Anecdotes are stories, not data.</strong> Chapter 6 is clearly stamped unverified; treat it as entertainment with a lesson, not evidence.</li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disc">
+      <h3>⚠️ Educational content — not medical advice</h3>
+      <p>This page is for <strong>education and entertainment only</strong>. It is not medical advice, not a recommendation, and not a substitute for a qualified healthcare professional. Retatrutide is an <strong>investigational drug</strong> — it is not approved by the FDA or any other regulator, and its long-term safety profile is not established.</p>
+      <p>Trial figures come from company announcements and early publications; <strong>full peer-reviewed papers are still pending</strong> for several trials, and numbers may be revised. Online anecdotes are <strong>unverified stories</strong>, many involving unregulated gray-market products of unknown content and purity — they prove nothing about what would happen to you.</p>
+      <p><strong>Do not attempt to obtain or use unapproved drugs.</strong> If you are considering any weight-management treatment, speak with a licensed clinician who can evaluate your individual situation.</p>
+    </div>
+    <div class="meta">
+      <span>Built October 2026 · Figures reflect trial readouts available at that time</span>
+      <span class="srcs"><span>Sources:</span><a href="https://www.nejm.org" rel="noopener">NEJM (Phase 2, 2023)</a><a href="https://www.thelancet.com" rel="noopener">The Lancet (TRIUMPH-2)</a><a href="https://www.patientcareonline.com/view/retatrutide-phase-3-data-show-up-to-28-weight-loss-in-obesity-trial" rel="noopener">TRIUMPH-1 summary</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* ---------- theme ---------- */
+var toggle=document.getElementById("themeToggle");
+function setTheme(t){document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("reta-theme",t)}catch(e){}}
+toggle.addEventListener("click",function(){
+  setTheme(document.documentElement.getAttribute("data-theme")==="light"?"dark":"light");
+});
+/* ---------- ambient dots ---------- */
+(function(){
+  var svg=document.getElementById("dots"),W,H,dots=[];
+  function size(){W=window.innerWidth;H=window.innerHeight;svg.setAttribute("viewBox","0 0 "+W+" "+H);}
+  size();window.addEventListener("resize",size);
+  var NS="http://www.w3.org/2000/svg";
+  var colors=["#7cc7ff","#38bdf8","#5eead4","#2dd4bf","#fb923c","#fdba74"];
+  for(var i=0;i<140;i++){
+    var c=document.createElementNS(NS,"circle");
+    var col=colors[i%colors.length];
+    var baseOp=0.30+Math.random()*0.35;
+    var sx=Math.random()*2000,sy=Math.random()*2000;
+    c.setAttribute("r",(1.4+Math.random()*2.2).toFixed(1));
+    c.setAttribute("fill",col);c.setAttribute("opacity",baseOp.toFixed(2));
+    c.style.transform="translate("+sx.toFixed(1)+"px,"+sy.toFixed(1)+"px)";
+    svg.appendChild(c);
+    dots.push({el:c,x:sx,y:sy,
+      vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,
+      baseOp:baseOp,ph:Math.random()*Math.PI*2,sp:0.3+Math.random()*0.7});
+  }
+  var paused=document.hidden;
+  document.addEventListener("visibilitychange",function(){paused=document.hidden;});
+  var t0=0;
+  function tick(ts){
+    requestAnimationFrame(tick);
+    if(paused||reduced)return;
+    if(!t0)t0=ts;var t=(ts-t0)/1000;
+    var w=window.innerWidth,h=window.innerHeight;
+    for(var i=0;i<dots.length;i++){var d=dots[i];
+      d.x+=d.vx;d.y+=d.vy;
+      if(d.x<-20)d.x=w+20;if(d.x>w+20)d.x=-20;
+      if(d.y<-20)d.y=h+20;if(d.y>h+20)d.y=-20;
+      d.el.style.transform="translate("+d.x.toFixed(1)+"px,"+d.y.toFixed(1)+"px)";
+      d.el.style.opacity=(d.baseOp*(0.7+0.3*Math.sin(t*d.sp+d.ph))).toFixed(2);
+    }
+  }
+  if(!reduced)requestAnimationFrame(tick);
+})();
+/* ---------- retatrutide 39-bead chain ---------- */
+(function(){
+  var g=document.getElementById("retaBeads");if(!g)return;
+  var NS="http://www.w3.org/2000/svg";
+  var n=39,startX=70,endX=720,y=120,amp=34;
+  for(var i=0;i<n;i++){
+    var t=i/(n-1),x=startX+(endX-startX)*t,yy=y+Math.sin(t*Math.PI*2.2)*amp;
+    var c=document.createElementNS(NS,"circle");
+    c.setAttribute("cx",x.toFixed(1));c.setAttribute("cy",yy.toFixed(1));
+    c.setAttribute("r",i%5===0?11:8.5);
+    c.setAttribute("fill","#0d1020");
+    c.setAttribute("stroke","url(#beadTri)");c.setAttribute("stroke-width","4");
+    g.appendChild(c);
+    if(i<n-1){
+      var t2=(i+1)/(n-1),x2=startX+(endX-startX)*t2,yy2=y+Math.sin(t2*Math.PI*2.2)*amp;
+      var l=document.createElementNS(NS,"line");
+      l.setAttribute("x1",x.toFixed(1));l.setAttribute("y1",yy.toFixed(1));
+      l.setAttribute("x2",x2.toFixed(1));l.setAttribute("y2",yy2.toFixed(1));
+      l.setAttribute("stroke","#3a4160");l.setAttribute("stroke-width","3");
+      g.insertBefore(l,g.firstChild);
+    }
+  }
+})();
+/* ---------- reveal on scroll ---------- */
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});
+},{threshold:0.12,rootMargin:"0px 0px -6% 0px"});
+document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+/* ---------- count-up stats ---------- */
+var cio=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting)return;cio.unobserve(e.target);
+    var el=e.target,end=parseFloat(el.getAttribute("data-count")),
+        dec=parseInt(el.getAttribute("data-decimals")||"0",10),
+        pre=el.getAttribute("data-prefix")||"",suf=el.getAttribute("data-suffix")||"";
+    if(reduced){el.textContent=pre+end.toFixed(dec)+suf;return;}
+    var t0=null,dur=1600;
+    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1),ease=1-Math.pow(1-p,3);
+      el.textContent=pre+(end*ease).toFixed(dec)+suf;
+      if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  });
+},{threshold:0.5});
+document.querySelectorAll("[data-count]").forEach(function(el){cio.observe(el);});
+/* ---------- glossary accordion ---------- */
+document.querySelectorAll(".g-item").forEach(function(item){
+  var q=item.querySelector(".g-q"),a=item.querySelector(".g-a");
+  q.addEventListener("click",function(){
+    var open=item.classList.contains("open");
+    document.querySelectorAll(".g-item.open").forEach(function(o){
+      o.classList.remove("open");
+      o.querySelector(".g-a").style.maxHeight="0px";
+      o.querySelector(".g-q").setAttribute("aria-expanded","false");
+    });
+    if(!open){
+      item.classList.add("open");
+      q.setAttribute("aria-expanded","true");
+      requestAnimationFrame(function(){a.style.maxHeight=a.scrollHeight+"px";});
+    }
+  });
+});
+/* ---------- sidebar / rail smooth scroll ---------- */
+document.querySelectorAll('.toc a[href^="#"], nav.chapters a[href^="#"]').forEach(function(a){
+  a.addEventListener("click",function(e){
+    e.preventDefault();
+    var id=a.getAttribute("href"),t=id.length>1?document.querySelector(id):null;
+    if(t)t.scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
+    if(history.replaceState&&id.length>1){try{history.replaceState(null,"",id);}catch(err){}}
+  });
+});
+/* ---------- progress + scrollspy ---------- */
+var bar=document.getElementById("progress"),
+    tocBar=document.getElementById("tocBar"),tocPct=document.getElementById("tocPct"),
+    links=Array.prototype.slice.call(document.querySelectorAll(".toc a, nav.chapters a")),
+    rail=document.getElementById("rail"),
+    sections=["ch1","ch2","ch3","ch4","ch5","ch6","ch7","ch8","ch9"].map(function(id){return document.getElementById(id);}),
+    pill=document.querySelector(".toc-pill"),cur=-1,ticking=false;
+function easeWidth(el,v){el.style.width=v+"%";}
+function update(){
+  ticking=false;
+  var h=document.documentElement,
+      max=h.scrollHeight-h.clientHeight,
+      p=max>0?Math.min(100,Math.max(0,(h.scrollTop||document.body.scrollTop)/max*100)):0;
+  easeWidth(bar,p);
+  if(tocBar)easeWidth(tocBar,p);
+  if(tocPct)tocPct.textContent=Math.round(p)+"%";
+  var idx=0;
+  sections.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<window.innerHeight*0.4)idx=i;});
+  if(idx!==cur){
+    cur=idx;
+    links.forEach(function(a){a.classList.remove("active");});
+    links.forEach(function(a){if(a.getAttribute("href")==="#ch"+(idx+1))a.classList.add("active");});
+    var active=document.querySelector(".toc a.active");
+    if(active&&pill){
+      var tocEl=document.querySelector(".toc"),
+          tr=tocEl.getBoundingClientRect(),ar=active.getBoundingClientRect();
+      pill.style.opacity="1";
+      pill.style.height=active.offsetHeight+"px";
+      pill.style.transform="translateY("+Math.round(ar.top-tr.top)+"px)";
+      if(rail&&window.innerWidth<1200){
+        var ra=rail.querySelector('a[href="#ch'+(idx+1)+'"]');
+        if(ra)rail.scrollTo({left:ra.offsetLeft-24,behavior:reduced?"auto":"smooth"});
+      }
+    }else if(pill){pill.style.opacity="0";}
+  }
+}
+window.addEventListener("scroll",function(){if(!ticking){ticking=true;requestAnimationFrame(update);}},{passive:true});
+window.addEventListener("resize",function(){cur=-1;update();});
+window.addEventListener("load",function(){cur=-1;update();});
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){cur=-1;update();});}
+setTimeout(function(){cur=-1;update();},800);
+update();
+/* ---------- completion confetti ---------- */
+var done=false;
+function fireConfetti(){
+  var c=document.getElementById("confetti"),ctx=c.getContext("2d");
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  c.classList.add("show");
+  var cols=["#7cc7ff","#5eead4","#fb923c","#fbbf24","#edf0f9"],parts=[];
+  for(var i=0;i<45;i++)parts.push({x:Math.random()*c.width,y:-20-Math.random()*c.height*0.25,
+    w:4+Math.random()*4,h:5+Math.random()*5,c:cols[i%cols.length],
+    vy:0.7+Math.random()*1.1,ph:Math.random()*Math.PI*2,sw:0.4+Math.random()*0.8,
+    r:Math.random()*Math.PI,vr:-0.06+Math.random()*0.12});
+  var start=null,dur=4200;
+  function frame(ts){
+    if(!start)start=ts;var el=ts-start,p=el/dur;
+    ctx.clearRect(0,0,c.width,c.height);
+    ctx.globalAlpha=p>0.7?Math.max(0,1-(p-0.7)/0.3):1;
+    parts.forEach(function(q){q.y+=q.vy;q.ph+=0.02;q.r+=q.vr;
+      var sx=q.x+Math.sin(q.ph)*22*q.sw;
+      ctx.save();ctx.translate(sx,q.y);ctx.rotate(q.r);ctx.fillStyle=q.c;
+      ctx.fillRect(-q.w/2,-q.h/2,q.w,q.h);ctx.restore();});
+    ctx.globalAlpha=1;
+    if(el<dur&&!reduced)requestAnimationFrame(frame);
+    else{c.classList.remove("show");ctx.clearRect(0,0,c.width,c.height);}
+  }
+  if(!reduced)requestAnimationFrame(frame);else c.classList.remove("show");
+}
+var fio=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting&&!done){done=true;
+      fireConfetti();
+      var t=document.getElementById("doneToast");
+      t.classList.add("show");setTimeout(function(){t.classList.remove("show");},4200);
+      fio.disconnect();}
+  });
+},{threshold:0.35});
+fio.observe(document.querySelector("footer"));
+})();
+</script>
+</body>
+</html>
