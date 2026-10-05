@@ -19,6 +19,7 @@ try{var _t=localStorage.getItem("reta-theme");if(_t==="light"||_t==="dark")docum
   --card:#0d1020; --card2:#12162b;
   --line:rgba(255,255,255,.09);
   --grad:linear-gradient(100deg,#7cc7ff 5%,#5eead4 50%,#fb923c 95%);
+  --ongrad:#0a0c14;
   --radius:18px;
   --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
   --disp:"Avenir Next","Segoe UI",-apple-system,BlinkMacSystemFont,Inter,Roboto,sans-serif;
@@ -50,18 +51,38 @@ body{font-family:var(--font);background:var(--bg0);color:var(--ink);
   box-shadow:0 8px 30px rgba(0,0,0,.28)}
 #doneToast.show{opacity:1;transform:translate(-50%,0)}
 #progress{position:fixed;top:0;left:0;height:3px;width:0%;z-index:60;background:var(--grad);border-radius:0 3px 3px 0}
-#themeToggle{position:fixed;top:12px;right:14px;z-index:70;width:44px;height:44px;border-radius:50%;
-  border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:transform .25s ease,background .25s ease;
+#themeToggle{position:fixed;top:12px;right:14px;z-index:70;display:flex;align-items:center;gap:2px;
+  border:1px solid var(--line);background:var(--card);border-radius:999px;padding:3px;
   box-shadow:0 4px 18px rgba(0,0,0,.25)}
-#themeToggle:hover{transform:scale(1.08)}
-#themeToggle:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
-#themeToggle svg{width:20px;height:20px}
-[data-theme="dark"] #themeToggle .ic-sun{display:block}
-[data-theme="dark"] #themeToggle .ic-moon{display:none}
-[data-theme="light"] #themeToggle .ic-sun{display:none}
-[data-theme="light"] #themeToggle .ic-moon{display:block}
+#themeToggle .tt-opt{display:flex;align-items:center;gap:.35rem;border:0;cursor:pointer;
+  padding:.42rem .7rem;border-radius:999px;background:transparent;color:var(--muted);
+  font:700 .74rem var(--font);letter-spacing:.02em;transition:background .25s ease,color .25s ease}
+#themeToggle .tt-opt svg{width:15px;height:15px}
+#themeToggle .tt-opt:hover{color:var(--ink)}
+#themeToggle .tt-opt:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+#themeToggle .tt-opt.active{background:var(--grad);color:#0a0c14}
+@media(max-width:720px){#themeToggle{top:66px}}
 [data-theme="dark"]{color-scheme:dark}
+/* soft neutral gray light theme — never stark white */
+[data-theme="light"]{
+  --bg0:#e8ebf0; --bg1:#eef1f6;
+  --ink:#1b2436; --muted:#4d5871; --faint:#707a93;
+  --sky:#0284c7; --sky-deep:#0369a1;
+  --teal:#0d9488; --teal-deep:#0f766e;
+  --org:#ea580c; --org-deep:#c2410c;
+  --amber:#b45309; --rose:#e11d48; --cyan:#0e7490;
+  --card:#f8fafc; --card2:#e9edf3;
+  --line:rgba(15,23,42,.14);
+  --grad:linear-gradient(100deg,#0284c7,#0d9488,#ea580c);
+  --ongrad:#ffffff;
+  color-scheme:light;
+}
+[data-theme="light"] nav.chapters{background:rgba(232,235,240,.88)}
+[data-theme="light"] .toc{background:rgba(232,235,240,.85)}
+[data-theme="light"] .toc a:hover{background:rgba(15,23,42,.06)}
+[data-theme="light"] .orb{opacity:.5}
+[data-theme="light"] #dots{opacity:.55}
+[data-theme="light"] .bg-grad{opacity:.55}
 nav.chapters{position:sticky;top:0;z-index:50;background:rgba(6,7,13,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 nav.chapters .rail{max-width:1080px;margin:0 auto;padding:.65rem 1rem;display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;padding-right:3.8rem}
 nav.chapters .rail::-webkit-scrollbar{display:none}
@@ -86,8 +107,8 @@ nav.chapters a.active{color:#0a0c14;background:var(--grad);border-color:transpar
     border:1px solid transparent;transition:all .22s ease;position:relative;z-index:1}
   .toc a .n{font-size:.72rem;font-weight:800;color:var(--faint);width:1.7rem;flex:0 0 auto;font-variant-numeric:tabular-nums;letter-spacing:.04em}
   .toc a:hover{color:var(--ink);background:rgba(255,255,255,.045)}
-  .toc a.active{color:#0a0c14;font-weight:700}
-  .toc a.active .n{color:#0a0c14}
+  .toc a.active{color:var(--ongrad);font-weight:700}
+  .toc a.active .n{color:var(--ongrad)}
   .toc-pill{position:absolute;left:1.4rem;top:0;width:calc(100% - 2.5rem);height:40px;border-radius:10px;
     background:var(--grad);z-index:0;opacity:0;pointer-events:none;
     transition:transform .5s cubic-bezier(.25,.8,.25,1),opacity .35s ease,height .3s ease}
@@ -472,10 +493,14 @@ mini-poll { display: block; }
 <canvas id="confetti" aria-hidden="true"></canvas>
 <div id="doneToast" role="status">You made it through the triple agonist 🎉</div>
 <div id="progress" aria-hidden="true"></div>
-<button id="themeToggle" aria-label="Toggle light or dark theme">
-  <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
-  <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 14.2A8.5 8.5 0 0 1 9.8 3.6a.7.7 0 0 0-.9-.9 10.5 10.5 0 1 0 12.4 12.4.7.7 0 0 0-.9-.9Z"/></svg>
-</button>
+<div id="themeToggle" role="group" aria-label="Color theme">
+  <button type="button" class="tt-opt" data-mode="light" aria-pressed="false">
+    <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><span>Light</span>
+  </button>
+  <button type="button" class="tt-opt" data-mode="dark" aria-pressed="true">
+    <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 14.2A8.5 8.5 0 0 1 9.8 3.6a.7.7 0 0 0-.9-.9 10.5 10.5 0 1 0 12.4 12.4.7.7 0 0 0-.9-.9Z"/></svg><span>Dark</span>
+  </button>
+</div>
 <aside class="toc" aria-label="Chapters">
   <div class="brand">Retatrutide<br><span class="g">the triple agonist</span></div>
   <div class="toc-pill" aria-hidden="true"></div>
@@ -907,11 +932,19 @@ mini-poll { display: block; }
 "use strict";
 var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* ---------- theme ---------- */
-var toggle=document.getElementById("themeToggle");
-function setTheme(t){document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("reta-theme",t)}catch(e){}}
-toggle.addEventListener("click",function(){
-  setTheme(document.documentElement.getAttribute("data-theme")==="light"?"dark":"light");
+function setTheme(t){
+  document.documentElement.setAttribute("data-theme",t);
+  try{localStorage.setItem("reta-theme",t)}catch(e){}
+  document.querySelectorAll("#themeToggle .tt-opt").forEach(function(b){
+    var on=b.dataset.mode===t;
+    b.classList.toggle("active",on);
+    b.setAttribute("aria-pressed",on?"true":"false");
+  });
+}
+document.querySelectorAll("#themeToggle .tt-opt").forEach(function(b){
+  b.addEventListener("click",function(){setTheme(b.dataset.mode);});
 });
+setTheme(document.documentElement.getAttribute("data-theme")==="light"?"light":"dark");
 /* ---------- ambient dots ---------- */
 (function(){
   var svg=document.getElementById("dots"),W,H,dots=[];
