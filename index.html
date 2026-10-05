@@ -303,6 +303,17 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
   .reveal{opacity:1;transform:none}
   .in .ebar .fill{transition:none}
 }
+
+/* --- ambient motion additions: subtle, additive, non-intrusive --- */
+@keyframes ringp{0%{transform:scale(.5);opacity:.85}100%{transform:scale(2.1);opacity:0}}
+.ringp{transform-box:fill-box;transform-origin:center;animation:ringp 2.8s ease-out infinite}
+@keyframes seqGlow{0%,100%{opacity:.35}18%{opacity:1}40%{opacity:.35}}
+.seqr1{animation:seqGlow 4.5s ease-in-out infinite}
+.seqr2{animation:seqGlow 4.5s ease-in-out .9s infinite}
+.seqr3{animation:seqGlow 4.5s ease-in-out 1.8s infinite}
+.flowseq{stroke-dasharray:6 7;animation:dashmove 1.6s linear infinite,seqGlow 4.5s ease-in-out infinite}
+.flowseq2{stroke-dasharray:6 7;animation:dashmove 1.6s linear infinite,seqGlow 4.5s ease-in-out .9s infinite}
+.flowseq3{stroke-dasharray:6 7;animation:dashmove 1.6s linear infinite,seqGlow 4.5s ease-in-out 1.8s infinite}
 </style>
 </head>
 <body>
@@ -406,9 +417,9 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
         <text x="450" y="168" text-anchor="middle" fill="#7f88a5" font-size="13">one molecule</text>
       </g>
       <g class="glow-pulse"><circle cx="450" cy="150" r="74" fill="none" stroke="url(#triGrad)" stroke-width="2" opacity=".5"/></g>
-      <line class="flow" x1="450" y1="208" x2="150" y2="330" stroke="#7cc7ff" stroke-width="4"/>
-      <line class="flow" x1="450" y1="208" x2="450" y2="330" stroke="#5eead4" stroke-width="4"/>
-      <line class="flow" x1="450" y1="208" x2="750" y2="330" stroke="#fb923c" stroke-width="4"/>
+      <line class="flowseq" x1="450" y1="208" x2="150" y2="330" stroke="#7cc7ff" stroke-width="4"/>
+      <line class="flowseq2" x1="450" y1="208" x2="450" y2="330" stroke="#5eead4" stroke-width="4"/>
+      <line class="flowseq3" x1="450" y1="208" x2="750" y2="330" stroke="#fb923c" stroke-width="4"/>
       <g><rect x="60" y="330" width="180" height="86" rx="14" fill="#0d1020" stroke="#0284c7" stroke-width="3"/>
         <text x="150" y="360" text-anchor="middle" fill="#7cc7ff" font-size="16" font-weight="800">GLP-1 receptor</text>
         <text x="150" y="386" text-anchor="middle" fill="#a9b1c9" font-size="13">eat less · feel full</text>
@@ -536,7 +547,7 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
         <text x="620" y="197" text-anchor="middle" fill="#7f88a5" font-size="12">step 3</text>
         <text x="620" y="256" text-anchor="middle" fill="#a9b1c9" font-size="13">wks 13–16</text>
         <text x="620" y="276" text-anchor="middle" fill="#5eead4" font-size="12">9 mg arm holds</text></g>
-      <g><circle cx="800" cy="180" r="46" fill="#0d1020" stroke="url(#triGrad)" stroke-width="4"/>
+      <g><circle class="ringp" cx="800" cy="180" r="46" fill="none" stroke="#fb923c" stroke-width="2"/><circle cx="800" cy="180" r="46" fill="#0d1020" stroke="url(#triGrad)" stroke-width="4"/>
         <text x="800" y="174" text-anchor="middle" fill="#edf0f9" font-size="20" font-weight="800">12 mg</text>
         <text x="800" y="197" text-anchor="middle" fill="#7f88a5" font-size="12">step 4</text>
         <text x="800" y="256" text-anchor="middle" fill="#a9b1c9" font-size="13">wk 17+</text>
@@ -576,6 +587,20 @@ table.trial tr td:first-child{color:var(--ink);font-weight:600}
   <span class="eyebrow"><span class="n">07</span>Safety</span>
   <h2>The <span class="hl">price</span> of the furnace</h2>
   <p class="lede">More levers, more side effects. The safety picture comes from <strong>thousands of trial participants</strong> — the strongest evidence in this whole story — and it splits into what trials <strong>measured</strong>, what the drug class <strong>suggests</strong>, and what is still <strong>unknown</strong>.</p>
+      <div class="diagram reveal">
+      <svg viewBox="0 0 900 270" role="img" aria-label="The glucagon furnace: energy expenditure rising like heat">
+      <g font-family="inherit" text-anchor="middle">
+        <text x="450" y="28" fill="#a9b1c9" font-size="14">The furnace: glucagon turns up energy expenditure</text>
+        <line class="flow" x1="400" y1="86" x2="400" y2="36" stroke="#fb923c" stroke-width="3" stroke-linecap="round"/>
+        <line class="flow" x1="450" y1="86" x2="450" y2="28" stroke="#fb923c" stroke-width="3" stroke-linecap="round"/>
+        <line class="flow" x1="500" y1="86" x2="500" y2="36" stroke="#fb923c" stroke-width="3" stroke-linecap="round"/>
+        <rect x="370" y="92" width="160" height="112" rx="20" fill="rgba(251,146,60,.08)" stroke="#fb923c" stroke-width="2"/>
+        <g class="glow-pulse"><path d="M450 182 C432 182 422 168 422 156 C422 146 428 138 434 130 C436 138 440 142 446 144 C446 134 450 124 456 116 C464 126 470 136 470 148 C478 144 482 138 484 132 C490 140 494 148 494 158 C494 172 476 182 450 182 Z" fill="#fb923c" opacity=".85"/></g>
+        <text x="450" y="222" fill="#fb923c" font-size="13" font-weight="700">glucagon lever</text>
+        <text x="450" y="252" fill="#7f88a5" font-size="13">Appetite down (GLP-1 + GIP) · burn up (glucagon) — both sides of the equation.</text>
+      </g>
+      </svg>
+      </div>
   <div class="safety-grid">
     <div class="scard lvl-known reveal"><span class="level">Measured in trials</span><h4>Gut effects dominate</h4><p>At 12 mg: <strong>nausea 42.4%</strong>, <strong>vomiting 25.3%</strong>. <strong>11.3%</strong> of the 12 mg group quit TRIUMPH-1 because of side effects. Mostly mild-to-moderate, mostly during dose escalation — but "mostly" is cold comfort if you're the one vomiting.</p></div>
     <div class="scard lvl-known reveal"><span class="level">Measured in trials</span><h4>Heart rate ticks up</h4><p>Like other incretin drugs, retatrutide raised resting heart rate by a few beats per minute. Whether that matters long-term for hearts already under strain is <strong>exactly what the TRIUMPH-3 cardiovascular data are for</strong> — and they didn't prove a risk reduction.</p></div>
