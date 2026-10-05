@@ -372,10 +372,17 @@ mini-poll { display: block; }
   text-transform: uppercase; color: var(--muted, #a9b1c9);
   margin-bottom: .6rem;
 }
-.mpoll-previewbadge {
-  display: inline-block; font-size: .72rem; font-weight: 700;
-  color: #0a0c14; background: #fbbf24; border-radius: 999px;
-  padding: .25rem .7rem; margin-bottom: .7rem;
+/* single top-of-page banner (preview mode only) */
+.mpoll-topbanner {
+  display: flex; align-items: center; justify-content: center; gap: .6rem;
+  max-width: 620px; margin: 0 auto 1.4rem; padding: .6rem 1.2rem;
+  border-radius: 999px; font-size: .82rem; font-weight: 700; color: #0a0c14;
+  background: linear-gradient(100deg, var(--acc1, #7cc7ff), var(--acc2, #5eead4), var(--acc3, #fb923c));
+}
+.mpoll-topbanner-dot {
+  flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%;
+  background: #0a0c14;
+  animation: mpulse 2.4s ease-in-out infinite;
 }
 .mpoll-field { border: 0; margin: 0; padding: 0; }
 .mpoll-q {
@@ -1247,6 +1254,19 @@ window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "" }
     this._teaserQ.textContent = voted ? '✓ you voted · see results' : q;
   };
 
+  MiniPoll.prototype.showPreviewBanner = function () {
+    if (window.__mpollBannerShown) return;
+    window.__mpollBannerShown = true;
+    var main = document.querySelector('main');
+    if (!main) return;
+    var d = document.createElement('div');
+    d.className = 'mpoll-topbanner';
+    d.setAttribute('role', 'note');
+    d.innerHTML = '<span class="mpoll-topbanner-dot" aria-hidden="true"></span>' +
+      '<span>Preview mode — votes stay in this browser</span>';
+    main.insertBefore(d, main.firstChild);
+  };
+
   MiniPoll.prototype.boot = async function () {
     try {
       if (!API) return this.bootPreview();
@@ -1287,6 +1307,7 @@ window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "" }
 
   /* ---------------- preview mode (no backend) ---------------- */
   MiniPoll.prototype.bootPreview = function () {
+    this.showPreviewBanner();
     var q = this.getAttribute('data-question') || 'Quick poll';
     var answers = [];
     try { answers = JSON.parse(this.getAttribute('data-answers') || '[]'); } catch (e) {}
@@ -1335,7 +1356,6 @@ window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "" }
         '<span class="mpoll-label">' + esc(o.label) + '</span></button>';
     }).join('');
     this._body.innerHTML =
-      (isPreview ? '<div class="mpoll-previewbadge">Preview mode — votes stay in this browser</div>' : '') +
       '<div class="mpoll-kicker">' + esc(this._poll.title || '🧬 Quick poll') + '</div>' +
       '<fieldset class="mpoll-field"><legend class="mpoll-q">' + esc(this._poll.description) + '</legend>' +
       '<div class="mpoll-opts">' + opts + '</div></fieldset>' +
@@ -1424,8 +1444,6 @@ window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "" }
     this._yourId = yourId;
     this._revoteAt = revoteAt ? new Date(revoteAt).getTime() : 0;
     var head = '<div class="mpoll-kicker">🔥 Community results</div>';
-    var badge = isPreview
-      ? '<div class="mpoll-previewbadge">Preview mode — votes stay in this browser</div>' : '';
     var foot = '';
     if (state === 'closed') {
       foot = '<div class="mpoll-sub">Voting has closed — final results.</div>';
@@ -1434,7 +1452,7 @@ window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "" }
     } else if (state === 'cooldown') {
       foot = '<button type="button" class="mpoll-again">🔄 Vote again</button>';
     }
-    this._body.innerHTML = badge + head +
+    this._body.innerHTML = head +
       '<div class="mpoll-bars" aria-live="polite"></div>' +
       '<div class="mpoll-total"></div>' + foot +
       (this._poll.disclaimer ? '<div class="mpoll-disc">' + esc(this._poll.disclaimer) + '</div>' : '');
@@ -1510,7 +1528,7 @@ window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "" }
   if (!window.customElements.get('mini-poll')) {
     window.customElements.define('mini-poll', MiniPoll);
   }
-  window.MiniPoll = { version: '1.3.0' };
+  window.MiniPoll = { version: '1.4.0' };
 })();
 
 </script>
