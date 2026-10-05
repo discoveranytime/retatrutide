@@ -1216,8 +1216,11 @@ window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "" }
     });
   }
 
-  /* per-poll accent: distinct pulsing-dot color + gradient border per poll */
-  var ACCENTS = ['#7cc7ff', '#5eead4', '#fb923c', '#a78bfa', '#f472b6',
+  /* per-poll accent: distinct pulsing-dot color + gradient border per poll.
+     Palette comes from window.MINI_POLL_CONFIG.accents when the page sets one,
+     otherwise the default nine-color set. */
+  var ACCENTS = (window.MINI_POLL_CONFIG && window.MINI_POLL_CONFIG.accents) ||
+                ['#7cc7ff', '#5eead4', '#fb923c', '#a78bfa', '#f472b6',
                  '#a3e635', '#fbbf24', '#fb7185', '#22d3ee'];
   function pollAccents(slug) {
     var m = /ch(\d+)/.exec(slug || '');
@@ -1290,14 +1293,17 @@ window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "" }
   MiniPoll.prototype.showPreviewBanner = function () {
     if (window.__mpollBannerShown) return;
     window.__mpollBannerShown = true;
-    var main = document.querySelector('main');
-    if (!main) return;
     var d = document.createElement('div');
     d.className = 'mpoll-topbanner';
     d.setAttribute('role', 'note');
     d.innerHTML = '<span class="mpoll-topbanner-dot" aria-hidden="true"></span>' +
       '<span>Votes stay in this browser</span>';
-    main.insertBefore(d, main.firstChild);
+    var main = document.querySelector('main');
+    if (main) { main.insertBefore(d, main.firstChild); return; }
+    var firstChapter = document.querySelector('section.chapter');
+    if (firstChapter && firstChapter.parentNode) {
+      firstChapter.parentNode.insertBefore(d, firstChapter);
+    }
   };
 
   MiniPoll.prototype.boot = async function () {
@@ -1561,7 +1567,7 @@ window.MINI_POLL_CONFIG = { supabaseUrl: "", anonKey: "", turnstileSiteKey: "" }
   if (!window.customElements.get('mini-poll')) {
     window.customElements.define('mini-poll', MiniPoll);
   }
-  window.MiniPoll = { version: '1.4.0' };
+  window.MiniPoll = { version: '1.5.1' };
 })();
 
 </script>
